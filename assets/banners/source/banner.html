@@ -57,8 +57,17 @@
       z-index: 2;
     }
 
+    /* Firma del centro abajo a la izquierda, a la altura del botón (no va sobre el titular) */
     .kicker {
-      margin: 0 0 1.1em;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      min-height: var(--cta-h);
+      max-width: 46%;
+      line-height: 1.35;
+      margin: 0;
       font-size: var(--kicker);
       font-weight: 600;
       letter-spacing: 0.16em;
@@ -104,7 +113,7 @@
     }
 
     .size-cover .sub { display: none; }
-    .size-cover .kicker { margin-bottom: 0.7em; }
+    .size-cover .kicker { display: none; } /* Facebook ya muestra el nombre de la página junto a la portada */
     .size-cover .cta { right: 0; bottom: 0; }
 
     .art { position: absolute; inset: 0; z-index: 1; display: none; }

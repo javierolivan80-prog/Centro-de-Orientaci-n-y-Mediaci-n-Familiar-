@@ -418,4 +418,49 @@
 
   // Estado inicial
   goToStep(1);
+
+  /* ---------- Inicio rápido en la portada ----------
+     Recoge nombre y correo, los pasa al asistente y lo deja en el paso 2.
+     No se envía nada hasta que la persona termina y pulsa «Enviar solicitud». */
+  var quick = document.getElementById("quick-start");
+  if (quick) {
+    var qsName = document.getElementById("qs-nombre");
+    var qsEmail = document.getElementById("qs-email");
+    var qsError = document.getElementById("qs-error");
+
+    function qsShow(message, input) {
+      qsError.textContent = message;
+      qsError.hidden = !message;
+      [qsName, qsEmail].forEach(function (el) {
+        el.setAttribute("aria-invalid", el === input ? "true" : "false");
+      });
+      if (input) input.focus();
+    }
+
+    quick.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var nameError = rules.nombre(qsName.value);
+      if (nameError) return qsShow(nameError, qsName);
+      var emailError = rules.email(qsEmail.value);
+      if (emailError) return qsShow(emailError, qsEmail);
+      qsShow("", null);
+
+      field("nombre").value = qsName.value.trim();
+      field("email").value = qsEmail.value.trim();
+      setError("nombre", "");
+      setError("email", "");
+      goToStep(2, false);
+
+      document.getElementById("contacto").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+      setTimeout(function () {
+        focusPanelTitle(2);
+      }, reduceMotion ? 0 : 500);
+    });
+
+    [qsName, qsEmail].forEach(function (el) {
+      el.addEventListener("input", function () {
+        if (!qsError.hidden) qsShow("", null);
+      });
+    });
+  }
 })();

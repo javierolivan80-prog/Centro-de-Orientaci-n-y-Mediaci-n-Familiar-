@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="t d">
+  <title id="t">Sala de orientación acogedora</title>
+  <desc id="d">Ilustración de una sala tranquila con dos butacas enfrentadas, una mesa auxiliar con una planta y una ventana con cortinas ligeras.</desc>
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F1E6"/><stop offset="1" stop-color="#EFE5D2"/></linearGradient>
+    <linearGradient id="win" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F1E3"/><stop offset="1" stop-color="#DDE6D0"/></linearGradient>
+    <linearGradient id="beam" x1=".5" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#FFFBF0" stop-opacity=".7"/><stop offset="1" stop-color="#FFFBF0" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#wall)"/>
+  <!-- suelo -->
+  <rect y="720" width="800" height="280" fill="#DCCBB0"/>
+  <rect y="720" width="800" height="14" fill="#CDBB9C"/>
+  <!-- ventana -->
+  <rect x="230" y="140" width="340" height="470" rx="4" fill="#FBF8F2"/>
+  <rect x="246" y="156" width="308" height="438" fill="url(#win)"/>
+  <path d="M246 470C330 430 420 450 500 476S540 470 554 462V594H246z" fill="#BFC9B0"/>
+  <path d="M246 520C330 490 420 510 500 530S540 524 554 520V594H246z" fill="#8C9B7E"/>
+  <path d="M400 156V594M246 370H554" stroke="#FBF8F2" stroke-width="8"/>
+  <!-- cortinas -->
+  <path d="M206 120H300C292 280 296 460 290 640H206z" fill="#FBF8F2" opacity=".92"/>
+  <path d="M594 120H500C508 280 504 460 510 640H594z" fill="#FBF8F2" opacity=".92"/>
+  <path d="M236 130C238 300 234 480 238 636M262 130C262 300 266 480 262 636M564 130C562 300 566 480 562 636M538 130C538 300 534 480 538 636" stroke="#E9DFCB" stroke-width="3" fill="none"/>
+  <rect x="196" y="108" width="408" height="12" rx="6" fill="#A58157"/>
+  <!-- haz de luz en el suelo -->
+  <path d="M250 640L170 960H640L560 640z" fill="url(#beam)"/>
+  <!-- alfombra -->
+  <ellipse cx="400" cy="860" rx="320" ry="64" fill="#E9DEC8"/>
+  <ellipse cx="400" cy="860" rx="270" ry="48" fill="none" stroke="#8C9B7E" stroke-width="4" opacity=".7"/>
+  <!-- cuadro -->
+  <g><rect x="60" y="260" width="120" height="160" fill="#FBF8F2"/><rect x="72" y="272" width="96" height="136" fill="#EDE3D3"/><path d="M92 408V340a28 28 0 0 1 56 0v68z" fill="#8C9B7E"/><circle cx="120" cy="304" r="12" fill="#C98B6B"/></g>
+  <!-- butaca izquierda -->
+  <g>
+    <rect x="86" y="640" width="36" height="150" rx="14" fill="#E0D2B8"/>
+    <rect x="84" y="560" width="64" height="230" rx="30" fill="#E7DCC8"/>
+    <rect x="84" y="700" width="230" height="96" rx="26" fill="#EFE6D3"/>
+    <rect x="260" y="640" width="60" height="156" rx="26" fill="#E7DCC8"/>
+    <rect x="96" y="776" width="12" height="42" fill="#A58157"/><rect x="290" y="776" width="12" height="42" fill="#A58157"/>
+    <path d="M150 700H300" stroke="#DCCDB1" stroke-width="3"/>
+  </g>
+  <!-- butaca derecha -->
+  <g>
+    <rect x="678" y="640" width="36" height="150" rx="14" fill="#C9D0B8"/>
+    <rect x="652" y="560" width="64" height="230" rx="30" fill="#D5DBC4"/>
+    <rect x="486" y="700" width="230" height="96" rx="26" fill="#DDE3CC"/>
+    <rect x="480" y="640" width="60" height="156" rx="26" fill="#D5DBC4"/>
+    <rect x="492" y="776" width="12" height="42" fill="#A58157"/><rect x="688" y="776" width="12" height="42" fill="#A58157"/>
+    <path d="M500 700H650" stroke="#C4CCB0" stroke-width="3"/>
+  </g>
+  <!-- mesa auxiliar -->
+  <g>
+    <ellipse cx="400" cy="752" rx="58" ry="12" fill="#D2B48C"/><rect x="394" y="754" width="12" height="76" fill="#A58157"/><ellipse cx="400" cy="832" rx="38" ry="8" fill="#A58157"/>
+    <path d="M370 720h34l-3 30h-28z" fill="#FBF8F2" opacity=".9"/>
+    <path d="M424 728h28l-3 24h-22z" fill="#C98B6B"/>
+    <path d="M438 728C428 706 444 692 440 672M438 728C452 710 442 694 458 678" stroke="#5C6B4E" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="438" cy="668" rx="8" ry="16" fill="#8C9B7E" transform="rotate(-14 438 668)"/><ellipse cx="460" cy="674" rx="8" ry="16" fill="#5C6B4E" transform="rotate(22 460 674)"/>
+  </g>
+</svg>

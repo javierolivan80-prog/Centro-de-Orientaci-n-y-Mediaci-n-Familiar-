@@ -16,7 +16,7 @@ js/main.js          Comportamiento: menú móvil, revelado al hacer scroll, vali
 
 1. **Datos del centro y de la fundadora:** abre `js/config.js` y sustituye los valores entre corchetes.
 2. **Textos de cada sección:** están directamente en `index.html`.
-3. **Fotografías:** los bloques con la etiqueta "Fotografía pendiente" son marcadores. Para usar una foto real, sustituye el `<div class="photo-frame">` por `<img>` con `alt` descriptivo, y mantén `aspect-ratio` en `.photo-frame` si quieres conservar el formato.
+3. **Imágenes:** las cuatro ilustraciones están en `assets/img/` (ver `assets/img/CREDITOS.md`). Para sustituirlas por fotografías, cambia el `src` del `<img>` correspondiente en `index.html`, conserva `width`, `height` y un `alt` descriptivo, y respeta los requisitos de privacidad de más abajo. El hueco de «Sobre la profesional» sigue siendo un marcador a la espera de una foto real.
 4. **Colores y tipografías:** variables en `:root` de `css/styles.css`.
 
 ## Formulario de contacto (asistente de tres pasos)
@@ -53,6 +53,16 @@ Notas:
 
 Cada página tiene `<title>`, meta descripción, Open Graph y una jerarquía de encabezados con un único `h1`. Las palabras clave del brief (orientación familiar, orientación matrimonial, orientación de pareja, mediación familiar, conflictos familiares y comunicación en pareja) aparecen de forma natural en los títulos y textos.
 
+## Imágenes
+
+No se han usado fotografías de personas. La web lleva cuatro **ilustraciones originales en SVG** (familia junto a una ventana, sala acogedora, familia en un olivar y pareja conversando) que usan la paleta del sitio, pesan unos 4 KB cada una y no dependen de terceros. Los personajes no tienen rasgos faciales, para respetar la discreción del servicio.
+
+Si más adelante se quieren fotografías reales:
+
+- Solo con consentimiento escrito de quienes aparezcan, o con licencia verificada; anota la fuente en `assets/img/CREDITOS.md`.
+- Máximo 1600 px de lado mayor, formato WebP, menos de 300 KB y sin metadatos EXIF.
+- Evita retratos reconocibles de menores y cualquier foto que pueda asociarse a un caso real.
+
 ## Banners para redes sociales
 
 Hay tres direcciones de arte en tres formatos, ya exportados en `assets/banners/primera-consulta/`:
@@ -84,6 +94,8 @@ node tests/break-ui.js
 
 - Curvas de salida fuertes, sin `ease-in`; ninguna animación `keyframes` en elementos que se activan a menudo.
 - Interacciones por debajo de 300 ms. Excepciones justificadas: el revelado de la imagen principal (600 ms, es editorial y ocurre una vez) y el desplegado de servicios, que anima la altura con `grid-template-rows`.
+- Un solo momento de animación de autor (la entrada de la portada); el resto de la página está quieta.
+- La acción principal está disponible en la primera pantalla en su forma de trabajo: un formulario de inicio rápido que pasa los datos al asistente.
 - Todos los efectos `:hover` van dentro de `@media (hover: hover) and (pointer: fine)`.
 - Respeta `prefers-reduced-motion`.
 - Móvil: sin destello al tocar, toque inmediato, zonas seguras del iPhone y teclado adecuado en cada campo.

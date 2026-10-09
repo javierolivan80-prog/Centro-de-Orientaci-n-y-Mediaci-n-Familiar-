@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="t d">
+  <title id="t">Familia junto a una ventana</title>
+  <desc id="d">Ilustración de dos adultos y un niño sentados juntos a una mesa, de espaldas a una ventana luminosa.</desc>
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F1E6"/><stop offset="1" stop-color="#EADFCB"/></linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F0E2"/><stop offset="1" stop-color="#E4EAD8"/></linearGradient>
+    <linearGradient id="beam" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFBF0" stop-opacity=".75"/><stop offset="1" stop-color="#FFFBF0" stop-opacity="0"/></linearGradient>
+    <clipPath id="glass"><path d="M350 660V310a175 175 0 0 1 350 0v350z"/></clipPath>
+  </defs>
+  <rect width="800" height="1000" fill="url(#wall)"/>
+  <!-- ventana -->
+  <path d="M330 680V310a195 195 0 0 1 390 0v370z" fill="#FBF8F2"/>
+  <path d="M350 660V310a175 175 0 0 1 350 0v350z" fill="url(#sky)"/>
+  <g clip-path="url(#glass)">
+    <circle cx="610" cy="240" r="70" fill="#FBF3DC" opacity=".9"/>
+    <path d="M330 520C400 470 470 480 540 510S660 500 720 470V680H330z" fill="#BFC9B0"/>
+    <path d="M330 580C410 540 480 560 560 585S670 570 720 550V680H330z" fill="#8C9B7E"/>
+    <g fill="#5C6B4E"><rect x="420" y="540" width="7" height="50"/><ellipse cx="423" cy="535" rx="30" ry="24"/><rect x="620" y="552" width="6" height="42"/><ellipse cx="623" cy="548" rx="24" ry="19"/></g>
+  </g>
+  <path d="M525 150V660M350 430H700" stroke="#FBF8F2" stroke-width="10" fill="none"/>
+  <path d="M350 660V310a175 175 0 0 1 350 0v350z" fill="none" stroke="#FBF8F2" stroke-width="14"/>
+  <!-- haz de luz -->
+  <path d="M350 680L40 1000H520L720 680z" fill="url(#beam)"/>
+  <!-- planta de pie -->
+  <g transform="translate(-60 40)">
+    <path d="M72 600V470M72 560C40 540 20 500 30 470M72 540C100 520 118 480 108 450M72 500C50 480 46 450 56 428" stroke="#5C6B4E" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <g fill="#8C9B7E"><ellipse cx="30" cy="462" rx="14" ry="26" transform="rotate(-20 30 462)"/><ellipse cx="108" cy="442" rx="14" ry="26" transform="rotate(22 108 442)"/><ellipse cx="56" cy="418" rx="13" ry="24"/></g>
+    <path d="M40 600H104L96 700H48z" fill="#C98B6B"/>
+  </g>
+  <!-- adulto izquierda -->
+  <g>
+    <rect x="232" y="500" width="34" height="60" fill="#DDAB84"/>
+    <path d="M130 760C130 620 178 568 249 568S368 620 368 760z" fill="#5C6B4E"/>
+    <circle cx="249" cy="470" r="60" fill="#E3B48F"/>
+    <path d="M190 470C186 410 230 396 262 402C300 410 316 444 306 484C296 440 262 430 226 440C206 446 196 456 190 470z" fill="#4A3A30"/>
+    <circle cx="206" cy="430" r="30" fill="#4A3A30"/>
+  </g>
+  <!-- adulto derecha -->
+  <g>
+    <rect x="570" y="505" width="38" height="66" fill="#CB9A74"/>
+    <path d="M446 760C446 622 500 576 589 576S732 622 732 760z" fill="#8C9B7E"/>
+    <circle cx="589" cy="476" r="62" fill="#D9A982"/>
+    <path d="M528 470C526 414 566 402 596 404C636 406 656 436 650 470C636 440 590 432 556 442C540 448 530 458 528 470z" fill="#3A332D"/>
+  </g>
+  <!-- niño -->
+  <g>
+    <rect x="404" y="600" width="26" height="40" fill="#E0B28E"/>
+    <path d="M338 770C338 676 372 632 417 632S496 676 496 770z" fill="#C98B6B"/>
+    <circle cx="417" cy="574" r="46" fill="#E8C4A0"/>
+    <path d="M372 570C370 530 396 520 420 524C446 528 462 548 458 576C448 552 420 546 394 552C384 556 376 562 372 570z" fill="#7A5236"/>
+  </g>
+  <!-- brazos que abrazan al niño -->
+  <path d="M338 668C372 676 394 690 408 712" stroke="#5C6B4E" stroke-width="40" stroke-linecap="round" fill="none"/>
+  <path d="M500 676C468 682 444 696 430 716" stroke="#8C9B7E" stroke-width="40" stroke-linecap="round" fill="none"/>
+  <!-- mesa -->
+  <rect x="0" y="736" width="800" height="264" fill="#B9936A"/>
+  <rect x="0" y="736" width="800" height="26" fill="#D2B48C"/>
+  <rect x="0" y="762" width="800" height="10" fill="#A58157" opacity=".6"/>
+  <g>
+    <path d="M110 712h54l-5 28h-44z" fill="#FBF8F2"/><path d="M164 722c14 0 14 16 0 16" stroke="#FBF8F2" stroke-width="5" fill="none"/>
+    <path d="M610 706h44l-4 34h-36z" fill="#FBF8F2"/>
+    <path d="M632 706c-14-24 6-44 4-60M632 706c14-20-2-38 18-58" stroke="#8C9B7E" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="636" cy="650" rx="9" ry="16" fill="#8C9B7E" transform="rotate(-16 636 650)"/><ellipse cx="654" cy="646" rx="9" ry="16" fill="#5C6B4E" transform="rotate(20 654 646)"/>
+  </g>
+</svg>

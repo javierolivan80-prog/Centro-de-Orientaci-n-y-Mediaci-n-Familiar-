@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="t d">
+  <title id="t">Pareja conversando en una terraza</title>
+  <desc id="d">Ilustración de dos personas sentadas frente a frente en una mesa redonda, conversando con calma ante un jardín mediterráneo.</desc>
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F1E6"/><stop offset="1" stop-color="#EADFCB"/></linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F1E3"/><stop offset="1" stop-color="#E2E9D5"/></linearGradient>
+    <clipPath id="arch"><path d="M300 900V400a300 300 0 0 1 600 0v500z"/></clipPath>
+  </defs>
+  <rect width="1200" height="900" fill="url(#wall)"/>
+  <path d="M280 900V400a320 320 0 0 1 640 0v500z" fill="#FBF8F2"/>
+  <path d="M300 900V400a300 300 0 0 1 600 0v500z" fill="url(#sky)"/>
+  <g clip-path="url(#arch)">
+    <circle cx="760" cy="230" r="80" fill="#FBF1D6" opacity=".95"/>
+    <path d="M300 560C400 500 520 520 620 550S800 540 900 500V900H300z" fill="#BFC9B0"/>
+    <path d="M300 640C420 590 540 620 650 646S820 630 900 600V900H300z" fill="#8C9B7E"/>
+    <g>
+      <g transform="translate(380 560)"><rect x="-4" y="0" width="8" height="70" fill="#6E6055"/><ellipse cx="0" cy="-6" rx="46" ry="34" fill="#5C6B4E"/><ellipse cx="-24" cy="6" rx="30" ry="22" fill="#6F7F60"/><ellipse cx="26" cy="8" rx="30" ry="22" fill="#6F7F60"/></g>
+      <g transform="translate(820 590)"><rect x="-4" y="0" width="8" height="60" fill="#6E6055"/><ellipse cx="0" cy="-6" rx="40" ry="30" fill="#4A5740"/><ellipse cx="-22" cy="6" rx="26" ry="20" fill="#5C6B4E"/><ellipse cx="22" cy="8" rx="26" ry="20" fill="#5C6B4E"/></g>
+      <g transform="translate(600 610)"><rect x="-3" y="0" width="6" height="46" fill="#6E6055"/><ellipse cx="0" cy="-4" rx="32" ry="24" fill="#6F7F60"/></g>
+    </g>
+  </g>
+  <path d="M300 900V400a300 300 0 0 1 600 0v500z" fill="none" stroke="#FBF8F2" stroke-width="16"/>
+  <!-- suelo -->
+  <rect x="0" y="800" width="1200" height="100" fill="#E3D6C2"/>
+  <rect x="0" y="800" width="1200" height="10" fill="#D6C7AC"/>
+  <!-- persona izquierda -->
+  <g>
+    <rect x="418" y="560" width="36" height="60" fill="#DDAB84"/>
+    <path d="M340 830C336 680 380 608 448 608S540 664 530 830z" fill="#5C6B4E"/>
+    <circle cx="440" cy="520" r="56" fill="#E3B48F"/>
+    <path d="M384 524C380 466 420 450 452 454C488 460 504 490 496 526C488 490 456 482 424 490C404 496 390 508 384 524z" fill="#4A3A30"/>
+    <circle cx="398" cy="482" r="28" fill="#4A3A30"/>
+    <path d="M526 700C560 700 584 704 612 716" stroke="#5C6B4E" stroke-width="38" stroke-linecap="round" fill="none"/>
+  </g>
+  <!-- persona derecha -->
+  <g>
+    <rect x="744" y="566" width="38" height="62" fill="#CB9A74"/>
+    <path d="M672 830C666 690 710 616 770 616S872 668 864 830z" fill="#C98B6B"/>
+    <circle cx="766" cy="526" r="58" fill="#D9A982"/>
+    <path d="M708 524C706 470 744 456 774 458C812 462 826 492 822 520C808 494 770 486 742 494C724 500 712 510 708 524z" fill="#B9B2A5"/>
+    <path d="M674 712C650 708 628 710 602 718" stroke="#C98B6B" stroke-width="38" stroke-linecap="round" fill="none"/>
+  </g>
+  <!-- mesa -->
+  <ellipse cx="600" cy="738" rx="150" ry="24" fill="#D2B48C"/>
+  <ellipse cx="600" cy="746" rx="150" ry="24" fill="#B9936A"/>
+  <ellipse cx="600" cy="736" rx="150" ry="22" fill="#D9BF98"/>
+  <rect x="590" y="756" width="20" height="110" fill="#A58157"/>
+  <ellipse cx="600" cy="868" rx="60" ry="10" fill="#A58157"/>
+  <path d="M556 700h34l-4 30h-26z" fill="#FBF8F2"/><path d="M590 708c11 0 11 12 0 12" stroke="#FBF8F2" stroke-width="4" fill="none"/>
+  <path d="M628 706h34l-4 30h-26z" fill="#FBF8F2"/>
+  <!-- maceta -->
+  <g transform="translate(1010 0)">
+    <path d="M-50 700h100l-14 130h-72z" fill="#C98B6B"/>
+    <path d="M0 700V560M0 660C-30 640-44 610-38 584M0 640C30 620 44 590 38 566M0 600C-18 584-22 562-14 544" stroke="#5C6B4E" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <g fill="#8C9B7E"><ellipse cx="-38" cy="580" rx="14" ry="28" transform="rotate(-18 -38 580)"/><ellipse cx="38" cy="562" rx="14" ry="28" transform="rotate(20 38 562)"/><ellipse cx="-14" cy="540" rx="13" ry="26"/></g>
+  </g>
+</svg>

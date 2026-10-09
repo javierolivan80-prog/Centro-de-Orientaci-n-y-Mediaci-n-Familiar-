@@ -71,18 +71,25 @@
     <section class="hero" id="inicio" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow reveal">Orientación y mediación familiar</p>
           <h1 id="hero-title" class="reveal" style="--delay: 60ms">Cuidar las relaciones es cuidar lo que más importa</h1>
           <p class="lead reveal" style="--delay: 120ms">Un espacio de orientación y mediación familiar para comprender las dificultades, recuperar el diálogo y encontrar caminos de entendimiento.</p>
-          <div class="btn-row reveal" style="--delay: 180ms">
-            <a class="btn btn-primary" href="#contacto">Solicitar una primera consulta</a>
-            <a class="btn btn-ghost" href="#enfoque">Conoce nuestro enfoque</a>
-          </div>
+          <form class="quick-start reveal" id="quick-start" style="--delay: 180ms" novalidate aria-label="Empezar la solicitud de consulta">
+            <div class="qs-fields">
+              <label class="sr-only" for="qs-nombre">Tu nombre</label>
+              <input id="qs-nombre" type="text" placeholder="Tu nombre" autocomplete="name" autocapitalize="words" enterkeyhint="next" maxlength="100" aria-describedby="qs-error">
+              <label class="sr-only" for="qs-email">Tu correo electrónico</label>
+              <input id="qs-email" type="email" placeholder="Tu correo electrónico" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="go" maxlength="254" aria-describedby="qs-error">
+              <button class="btn btn-primary" type="submit">Solicitar una primera consulta</button>
+            </div>
+            <p class="error" id="qs-error" role="alert" hidden></p>
+            <p class="qs-note">Empiezas aquí y completas dos pasos más. No se envía nada hasta el final.</p>
+          </form>
+          <p class="hero-secondary reveal" style="--delay: 240ms"><a class="link-more" href="#enfoque">Conoce nuestro enfoque</a></p>
         </div>
 
-        <figure class="photo photo-hero reveal">
-          <div class="photo-frame" role="img" aria-label="Espacio luminoso con luz natural entrando por una ventana">
-            <span class="photo-note">Fotografía pendiente: luz natural, espacio cálido y acogedor</span>
+        <figure class="photo photo-hero reveal" style="--delay: 120ms">
+          <div class="photo-frame">
+            <img src="assets/img/familia-ventana.svg" alt="Ilustración de una familia, dos adultos y un niño, sentados muy juntos a una mesa frente a una ventana luminosa." width="800" height="1000" decoding="async" fetchpriority="high">
           </div>
           <span class="photo-accent" aria-hidden="true"></span>
         </figure>
@@ -92,28 +99,28 @@
     <!-- PRESENTACIÓN -->
     <section class="section" id="el-centro" aria-labelledby="centro-title">
       <div class="container">
+        <div class="intro-grid">
         <div class="intro">
-          <p class="eyebrow reveal">El centro</p>
-          <h2 id="centro-title" class="reveal">Un lugar para volver a encontrarse</h2>
-          <p class="text-large reveal">Las relaciones familiares atraviesan distintas etapas y, en ocasiones, aparecen dificultades que resulta complicado resolver en solitario. En nuestro centro ofrecemos un espacio de escucha, orientación y acompañamiento para abordar los conflictos con serenidad, comprender lo que está ocurriendo y encontrar nuevas formas de relacionarse.</p>
+          <h2 id="centro-title" >Un lugar para volver a encontrarse</h2>
+          <p class="text-large">Las relaciones familiares atraviesan distintas etapas y, en ocasiones, aparecen dificultades que resulta complicado resolver en solitario. En nuestro centro ofrecemos un espacio de escucha, orientación y acompañamiento para abordar los conflictos con serenidad, comprender lo que está ocurriendo y encontrar nuevas formas de relacionarse.</p>
+        </div>
+        <figure class="photo photo-side">
+          <div class="photo-frame">
+            <img src="assets/img/sala-acogedora.svg" alt="Ilustración de una sala tranquila con dos butacas enfrentadas, una mesa auxiliar con una planta y una ventana con cortinas ligeras." width="800" height="1000" loading="lazy" decoding="async">
+          </div>
+        </figure>
         </div>
 
         <div class="pillars">
-          <article class="pillar reveal">
-            <span class="pillar-index">I</span>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3-5 15-5 18 0-3 5-15 5-18 0z"/><circle cx="12" cy="12" r="2.5"/></svg>
+          <article class="pillar">
             <h3>Escucha sin juicios</h3>
             <p>Cada persona puede hablar con libertad, sabiendo que será escuchada con respeto.</p>
           </article>
-          <article class="pillar reveal" style="--delay: 60ms">
-            <span class="pillar-index">II</span>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4v8l5 3"/></svg>
+          <article class="pillar">
             <h3>Orientación personalizada</h3>
             <p>Cada situación es distinta, y el acompañamiento se adapta a sus necesidades y ritmos.</p>
           </article>
-          <article class="pillar reveal" style="--delay: 120ms">
-            <span class="pillar-index">III</span>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10v7H9l-3 3v-3H4z"/><path d="M14 10h6v6h-2v2l-3-2h-1"/></svg>
+          <article class="pillar">
             <h3>Diálogo y entendimiento</h3>
             <p>Recuperar la conversación es el punto de partida para construir acuerdos duraderos.</p>
           </article>
@@ -125,13 +132,12 @@
     <section class="section section-tint" id="servicios" aria-labelledby="servicios-title">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow reveal">Servicios</p>
-          <h2 id="servicios-title" class="reveal">Acompañamiento para cada etapa de la relación</h2>
-          <p class="reveal">Pulsa «Más información» para conocer cada servicio. Si quieres, puedes solicitar una consulta directamente desde aquí.</p>
+          <h2 id="servicios-title" >Acompañamiento para cada etapa de la relación</h2>
+          <p >Pulsa «Más información» para conocer cada servicio. Si quieres, puedes solicitar una consulta directamente desde aquí.</p>
         </div>
 
         <ul class="service-list">
-          <li class="service reveal" data-motivo="matrimonial">
+          <li class="service" data-motivo="matrimonial">
             <div class="service-main">
               <h3 class="service-title">Orientación matrimonial</h3>
               <p class="service-text">Acompañamiento a matrimonios que desean mejorar su comunicación, afrontar dificultades, comprender sus diferencias o fortalecer su relación.</p>
@@ -147,7 +153,7 @@
             </div>
           </li>
 
-          <li class="service reveal" data-motivo="pareja">
+          <li class="service" data-motivo="pareja">
             <div class="service-main">
               <h3 class="service-title">Orientación de pareja</h3>
               <p class="service-text">Un espacio para identificar patrones de relación, abordar conflictos y desarrollar herramientas que permitan construir una relación más consciente y saludable.</p>
@@ -163,7 +169,7 @@
             </div>
           </li>
 
-          <li class="service reveal" data-motivo="mediacion">
+          <li class="service" data-motivo="mediacion">
             <div class="service-main">
               <h3 class="service-title">Mediación familiar</h3>
               <p class="service-text">Acompañamiento imparcial para ayudar a los miembros de una familia a dialogar, comprender sus necesidades y buscar acuerdos de manera colaborativa.</p>
@@ -179,7 +185,7 @@
             </div>
           </li>
 
-          <li class="service reveal" data-motivo="familiar">
+          <li class="service" data-motivo="familiar">
             <div class="service-main">
               <h3 class="service-title">Orientación familiar</h3>
               <p class="service-text">Apoyo para afrontar conflictos entre padres e hijos, dificultades de convivencia y otros retos que afectan al bienestar familiar.</p>
@@ -195,7 +201,7 @@
             </div>
           </li>
 
-          <li class="service reveal" data-motivo="prevencion">
+          <li class="service" data-motivo="prevencion">
             <div class="service-main">
               <h3 class="service-title">Prevención y fortalecimiento de las relaciones</h3>
               <p class="service-text">Orientación para parejas y familias que desean anticiparse a los conflictos, mejorar sus habilidades de comunicación y cuidar sus vínculos.</p>
@@ -216,17 +222,23 @@
 
     <!-- FILOSOFÍA -->
     <section class="section" id="filosofia" aria-labelledby="filosofia-title">
+      <div class="container">
+        <figure class="photo photo-wide">
+          <div class="photo-frame">
+            <img src="assets/img/familia-olivar.svg" alt="Ilustración de una familia, dos adultos y dos niños, paseando de la mano por un camino entre olivos al atardecer." width="1200" height="800" loading="lazy" decoding="async">
+          </div>
+        </figure>
+      </div>
       <div class="container split">
         <div>
-          <p class="eyebrow reveal">Nuestra filosofía</p>
-          <h2 id="filosofia-title" class="reveal">Cada familia tiene su historia. Cada historia merece ser escuchada.</h2>
-          <p class="reveal">Trabajamos desde la escucha activa y el respeto por cada persona. Cuidamos la confidencialidad dentro de los límites que marca la ley y buscamos soluciones adaptadas a cada situación, respetando siempre la autonomía de quienes participan.</p>
+          <h2 id="filosofia-title" >Cada familia tiene su historia. Cada historia merece ser escuchada.</h2>
+          <p >Trabajamos desde la escucha activa y el respeto por cada persona. Cuidamos la confidencialidad dentro de los límites que marca la ley y buscamos soluciones adaptadas a cada situación, respetando siempre la autonomía de quienes participan.</p>
         </div>
         <ol class="principles">
-          <li class="reveal"><span class="principle-num">1</span><h3>Escuchar antes de juzgar</h3></li>
-          <li class="reveal" style="--delay: 60ms"><span class="principle-num">2</span><h3>Comprender antes de buscar soluciones</h3></li>
-          <li class="reveal" style="--delay: 120ms"><span class="principle-num">3</span><h3>Dialogar para construir entendimiento</h3></li>
-          <li class="reveal" style="--delay: 180ms"><span class="principle-num">4</span><h3>Avanzar respetando a cada persona</h3></li>
+          <li ><span class="principle-num">1</span><h3>Escuchar antes de juzgar</h3></li>
+          <li ><span class="principle-num">2</span><h3>Comprender antes de buscar soluciones</h3></li>
+          <li ><span class="principle-num">3</span><h3>Dialogar para construir entendimiento</h3></li>
+          <li ><span class="principle-num">4</span><h3>Avanzar respetando a cada persona</h3></li>
         </ol>
       </div>
     </section>
@@ -234,18 +246,17 @@
     <!-- SOBRE LA PROFESIONAL -->
     <section class="section section-tint" id="profesional" aria-labelledby="profesional-title">
       <div class="container split profile">
-        <figure class="photo reveal">
+        <figure class="photo">
           <div class="photo-frame photo-portrait" role="img" aria-label="Retrato profesional de la fundadora">
             <span class="photo-note">Fotografía profesional pendiente</span>
           </div>
         </figure>
 
         <div>
-          <p class="eyebrow reveal">Sobre la profesional</p>
-          <h2 id="profesional-title" class="reveal">Un acompañamiento cercano y profesional</h2>
-          <p class="text-large reveal">Detrás de este centro hay una vocación de acompañar a las personas y las familias en momentos importantes de sus vidas. Mi objetivo es ofrecer un espacio de confianza en el que poder hablar, comprender las dificultades y explorar nuevas formas de afrontar los conflictos.</p>
+          <h2 id="profesional-title" >Un acompañamiento cercano y profesional</h2>
+          <p class="text-large">Detrás de este centro hay una vocación de acompañar a las personas y las familias en momentos importantes de sus vidas. Mi objetivo es ofrecer un espacio de confianza en el que poder hablar, comprender las dificultades y explorar nuevas formas de afrontar los conflictos.</p>
 
-          <dl class="profile-data reveal">
+          <dl class="profile-data">
             <div><dt>Nombre</dt><dd data-cfg="founderName">[Nombre y apellidos]</dd></div>
             <div><dt>Formación académica</dt><dd data-cfg="founderTraining">[Formación académica]</dd></div>
             <div><dt>Máster</dt><dd data-cfg="founderMaster">[Máster cursado] · Universidad de Navarra (UNAV)</dd></div>
@@ -260,37 +271,43 @@
     <!-- CÓMO TRABAJAMOS -->
     <section class="section" id="como-trabajamos" aria-labelledby="proceso-title">
       <div class="container">
-        <div class="section-head">
-          <p class="eyebrow reveal">Cómo trabajamos</p>
-          <h2 id="proceso-title" class="reveal">Un primer paso para encontrar claridad</h2>
+        <div class="head-with-photo">
+          <div class="section-head">
+            <h2 id="proceso-title">Un primer paso para encontrar claridad</h2>
+          </div>
+          <figure class="photo photo-side-wide">
+            <div class="photo-frame">
+              <img src="assets/img/pareja-conversando.svg" alt="Ilustración de una pareja sentada frente a frente en una mesa redonda, conversando con calma ante un jardín mediterráneo." width="1200" height="900" loading="lazy" decoding="async">
+            </div>
+          </figure>
         </div>
 
         <ol class="steps">
-          <li class="step reveal">
+          <li class="step">
             <span class="step-num" aria-hidden="true">01</span>
             <h3>Nos conocemos</h3>
             <p>Una primera conversación para conocer la situación, escuchar las necesidades y valorar qué tipo de acompañamiento puede resultar adecuado.</p>
           </li>
-          <li class="step reveal" style="--delay: 60ms">
+          <li class="step">
             <span class="step-num" aria-hidden="true">02</span>
             <h3>Comprendemos lo que está ocurriendo</h3>
             <p>Identificamos las dificultades, las necesidades de cada persona y los objetivos que se quieren alcanzar.</p>
           </li>
-          <li class="step reveal" style="--delay: 120ms">
+          <li class="step">
             <span class="step-num" aria-hidden="true">03</span>
             <h3>Buscamos caminos de avance</h3>
             <p>Trabajamos para mejorar el diálogo, desarrollar herramientas y, cuando corresponda, facilitar la búsqueda de acuerdos.</p>
           </li>
         </ol>
 
-        <p class="note reveal">Cada proceso se adapta a cada caso. La mediación requiere voluntariedad, imparcialidad y que las condiciones del caso sean adecuadas; en cada situación valoraremos juntos si es el camino indicado.</p>
+        <p class="note">Cada proceso se adapta a cada caso. La mediación requiere voluntariedad, imparcialidad y que las condiciones del caso sean adecuadas; en cada situación valoraremos juntos si es el camino indicado.</p>
       </div>
     </section>
 
     <!-- ENFOQUE -->
     <section class="section section-quote" id="enfoque" aria-label="Nuestro enfoque">
       <div class="container narrow">
-        <blockquote class="reveal">
+        <blockquote >
           <p>Acompañar a las personas y las familias a encontrar caminos de entendimiento, diálogo y crecimiento.</p>
         </blockquote>
       </div>
@@ -300,36 +317,35 @@
     <section class="section" id="preguntas" aria-labelledby="faq-title">
       <div class="container narrow">
         <div class="section-head">
-          <p class="eyebrow reveal">Preguntas frecuentes</p>
-          <h2 id="faq-title" class="reveal">Resolvemos tus dudas</h2>
+          <h2 id="faq-title" >Resolvemos tus dudas</h2>
         </div>
 
         <div class="faq">
-          <details class="reveal">
+          <details >
             <summary>¿Cuándo conviene acudir a un centro de orientación familiar?</summary>
             <p>Cuando se repiten los conflictos, cuesta hablar de lo que ocurre o se sienten distancia y desgaste, aunque no se sepa muy bien por dónde empezar. No hace falta que la situación sea urgente ni que exista una crisis.</p>
           </details>
-          <details class="reveal">
+          <details >
             <summary>¿Cuál es la diferencia entre orientación matrimonial y mediación familiar?</summary>
             <p>La orientación matrimonial y de pareja acompaña a las personas a comprender su relación y mejorar la comunicación. La mediación familiar es un proceso estructurado, voluntario e imparcial en el que se busca que las partes lleguen a sus propios acuerdos. Te explicaremos cuál encaja mejor en tu caso.</p>
           </details>
-          <details class="reveal">
+          <details >
             <summary>¿Es necesario que acudan los dos miembros de la pareja?</summary>
             <p>No siempre. En la orientación individual o de una sola parte también se puede trabajar la situación propia. En la mediación, la participación de todas las partes es necesaria y voluntaria. Lo valoraremos en la primera conversación.</p>
           </details>
-          <details class="reveal">
+          <details >
             <summary>¿Cómo es la primera consulta?</summary>
             <p>Es una conversación para conocernos, entender qué está ocurriendo y explicarte cómo trabajamos. Puedes venir con tus dudas o sin ellas. Al final, valoraremos juntos si el acompañamiento es adecuado.</p>
           </details>
-          <details class="reveal">
+          <details >
             <summary>¿Cuánto dura el proceso de acompañamiento?</summary>
             <p>Depende de cada caso, de los objetivos y del ritmo de las personas. Lo acordaremos desde el inicio y lo revisaremos de forma periódica.</p>
           </details>
-          <details class="reveal">
+          <details >
             <summary>¿Se puede realizar una consulta online?</summary>
             <p>[Indicar aquí si el centro ofrece consultas online y en qué condiciones. Hasta que se confirme, no se ofrecen como modalidad.]</p>
           </details>
-          <details class="reveal">
+          <details >
             <summary>¿Cómo se protege la confidencialidad?</summary>
             <p>La información que compartes es confidencial, dentro de los límites que establece la ley. Solo se utilizan tus datos para gestionar tu consulta. Consulta nuestra <a href="legal.html#privacidad">política de privacidad</a> para más detalles.</p>
           </details>
@@ -341,11 +357,10 @@
     <section class="section section-tint" id="contacto" aria-labelledby="contacto-title">
       <div class="container contact-grid">
         <div>
-          <p class="eyebrow reveal">Contacto</p>
-          <h2 id="contacto-title" class="reveal">Estamos aquí para escucharte</h2>
-          <p class="text-large reveal">Dar el primer paso puede ser difícil. Podemos empezar con una conversación.</p>
+          <h2 id="contacto-title" >Estamos aquí para escucharte</h2>
+          <p class="text-large">Dar el primer paso puede ser difícil. Podemos empezar con una conversación.</p>
 
-          <ul class="contact-list reveal">
+          <ul class="contact-list">
             <li>
               <span class="contact-label">Teléfono</span>
               <a href="tel:" data-cfg-href="phone" data-cfg-text="phone">[+34 000 000 000]</a>
@@ -365,7 +380,7 @@
           </ul>
         </div>
 
-        <div class="form-wrap reveal" style="--delay: 80ms">
+        <div class="form-wrap">
           <form class="form-card" id="consulta-form" novalidate aria-labelledby="form-title">
             <div class="form-head">
               <h3 id="form-title">Solicitar una consulta</h3>
@@ -497,7 +512,7 @@
     </div>
   </footer>
 
-  <a class="to-top" href="#top" aria-label="Volver arriba">↑</a>
+  <a class="to-top" href="#top" aria-label="Volver arriba"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg></a>
 
   <script src="js/config.js"></script>
   <script src="js/main.js"></script>
