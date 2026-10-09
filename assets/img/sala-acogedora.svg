@@ -1,57 +1,82 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="t d">
+  <style>
+.sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 6s ease-in-out infinite alternate}
+.sway.b{animation-duration:7.5s;animation-delay:-2s}
+@keyframes sway{from{transform:rotate(-2.6deg)}to{transform:rotate(2.6deg)}}
+.grove{transform-box:fill-box;transform-origin:50% 100%;animation:grove 9s ease-in-out infinite alternate}
+@keyframes grove{from{transform:rotate(-.5deg)}to{transform:rotate(.5deg)}}
+.steam{transform-box:fill-box;animation:steam 3.4s ease-out infinite;opacity:0}
+.steam.b{animation-delay:-1.7s}
+@keyframes steam{0%{opacity:0;transform:translateY(8px)}30%{opacity:.85}100%{opacity:0;transform:translateY(-20px)}}
+.glow{transform-box:fill-box;transform-origin:50% 50%;animation:glow 6s ease-in-out infinite alternate}
+@keyframes glow{from{transform:scale(1);opacity:.7}to{transform:scale(1.12);opacity:1}}
+.light{animation:light 8s ease-in-out infinite alternate}
+@keyframes light{from{opacity:.5}to{opacity:1}}
+.nod{transform-box:fill-box;transform-origin:50% 100%;animation:nod 5s ease-in-out infinite alternate}
+.nod.b{animation-duration:6.4s;animation-delay:-2.2s}
+@keyframes nod{from{transform:rotate(-1.1deg)}to{transform:rotate(1.1deg)}}
+.drift{animation:drift 26s ease-in-out infinite alternate}
+.drift.b{animation-duration:34s;animation-delay:-9s}
+@keyframes drift{from{transform:translateX(-14px)}to{transform:translateX(30px)}}
+.bob{animation:bob 1.05s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+.breathe{transform-box:fill-box;transform-origin:50% 0;animation:breathe 7s ease-in-out infinite alternate}
+@keyframes breathe{from{transform:scaleX(1)}to{transform:scaleX(1.03)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.steam{opacity:0}}
+</style>
   <title id="t">Sala de orientación acogedora</title>
   <desc id="d">Ilustración de una sala tranquila con dos butacas enfrentadas, una mesa auxiliar con una planta y una ventana con cortinas ligeras.</desc>
   <defs>
-    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F1E6"/><stop offset="1" stop-color="#EFE5D2"/></linearGradient>
-    <linearGradient id="win" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F1E3"/><stop offset="1" stop-color="#DDE6D0"/></linearGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6e3"/><stop offset="1" stop-color="#EFE5D2"/></linearGradient>
+    <linearGradient id="win" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cde8f0"/><stop offset="1" stop-color="#fff3d6"/></linearGradient>
     <linearGradient id="beam" x1=".5" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#FFFBF0" stop-opacity=".7"/><stop offset="1" stop-color="#FFFBF0" stop-opacity="0"/></linearGradient>
   </defs>
   <rect width="800" height="1000" fill="url(#wall)"/>
   <!-- suelo -->
-  <rect y="720" width="800" height="280" fill="#DCCBB0"/>
-  <rect y="720" width="800" height="14" fill="#CDBB9C"/>
+  <rect y="720" width="800" height="280" fill="#f0d9ab"/>
+  <rect y="720" width="800" height="14" fill="#e6cf9c"/>
   <!-- ventana -->
-  <rect x="230" y="140" width="340" height="470" rx="4" fill="#FBF8F2"/>
+  <rect x="230" y="140" width="340" height="470" rx="4" fill="#fffcf5"/>
   <rect x="246" y="156" width="308" height="438" fill="url(#win)"/>
-  <path d="M246 470C330 430 420 450 500 476S540 470 554 462V594H246z" fill="#BFC9B0"/>
-  <path d="M246 520C330 490 420 510 500 530S540 524 554 520V594H246z" fill="#8C9B7E"/>
-  <path d="M400 156V594M246 370H554" stroke="#FBF8F2" stroke-width="8"/>
+  <path d="M246 470C330 430 420 450 500 476S540 470 554 462V594H246z" fill="#a9d2b4"/>
+  <path d="M246 520C330 490 420 510 500 530S540 524 554 520V594H246z" fill="#5ba17a"/>
+  <path d="M400 156V594M246 370H554" stroke="#fffcf5" stroke-width="8"/>
   <!-- cortinas -->
-  <path d="M206 120H300C292 280 296 460 290 640H206z" fill="#FBF8F2" opacity=".92"/>
-  <path d="M594 120H500C508 280 504 460 510 640H594z" fill="#FBF8F2" opacity=".92"/>
+  <path class="breathe" d="M206 120H300C292 280 296 460 290 640H206z" fill="#fffcf5" opacity=".92"/>
+  <path class="breathe" style="transform-origin:100% 0" d="M594 120H500C508 280 504 460 510 640H594z" fill="#fffcf5" opacity=".92"/>
   <path d="M236 130C238 300 234 480 238 636M262 130C262 300 266 480 262 636M564 130C562 300 566 480 562 636M538 130C538 300 534 480 538 636" stroke="#E9DFCB" stroke-width="3" fill="none"/>
-  <rect x="196" y="108" width="408" height="12" rx="6" fill="#A58157"/>
+  <rect x="196" y="108" width="408" height="12" rx="6" fill="#a86f3a"/>
   <!-- haz de luz en el suelo -->
-  <path d="M250 640L170 960H640L560 640z" fill="url(#beam)"/>
+  <path class="light" d="M250 640L170 960H640L560 640z" fill="url(#beam)"/>
   <!-- alfombra -->
-  <ellipse cx="400" cy="860" rx="320" ry="64" fill="#E9DEC8"/>
-  <ellipse cx="400" cy="860" rx="270" ry="48" fill="none" stroke="#8C9B7E" stroke-width="4" opacity=".7"/>
+  <ellipse cx="400" cy="860" rx="320" ry="64" fill="#fbeccb"/>
+  <ellipse cx="400" cy="860" rx="270" ry="48" fill="none" stroke="#5ba17a" stroke-width="4" opacity=".7"/>
   <!-- cuadro -->
-  <g><rect x="60" y="260" width="120" height="160" fill="#FBF8F2"/><rect x="72" y="272" width="96" height="136" fill="#EDE3D3"/><path d="M92 408V340a28 28 0 0 1 56 0v68z" fill="#8C9B7E"/><circle cx="120" cy="304" r="12" fill="#C98B6B"/></g>
+  <g><rect x="60" y="260" width="120" height="160" fill="#fffcf5"/><rect x="72" y="272" width="96" height="136" fill="#f6e3b8"/><path d="M92 408V340a28 28 0 0 1 56 0v68z" fill="#5ba17a"/><circle cx="120" cy="304" r="12" fill="#F7C65B"/></g>
   <!-- butaca izquierda -->
   <g>
-    <rect x="86" y="640" width="36" height="150" rx="14" fill="#E0D2B8"/>
-    <rect x="84" y="560" width="64" height="230" rx="30" fill="#E7DCC8"/>
-    <rect x="84" y="700" width="230" height="96" rx="26" fill="#EFE6D3"/>
-    <rect x="260" y="640" width="60" height="156" rx="26" fill="#E7DCC8"/>
-    <rect x="96" y="776" width="12" height="42" fill="#A58157"/><rect x="290" y="776" width="12" height="42" fill="#A58157"/>
-    <path d="M150 700H300" stroke="#DCCDB1" stroke-width="3"/>
+    <rect x="86" y="640" width="36" height="150" rx="14" fill="#D9774F"/>
+    <rect x="84" y="560" width="64" height="230" rx="30" fill="#E58A63"/>
+    <rect x="84" y="700" width="230" height="96" rx="26" fill="#F2A27E"/>
+    <rect x="260" y="640" width="60" height="156" rx="26" fill="#E58A63"/>
+    <rect x="96" y="776" width="12" height="42" fill="#a86f3a"/><rect x="290" y="776" width="12" height="42" fill="#a86f3a"/>
+    <path d="M150 700H300" stroke="#C9653F" stroke-width="3"/>
   </g>
   <!-- butaca derecha -->
   <g>
-    <rect x="678" y="640" width="36" height="150" rx="14" fill="#C9D0B8"/>
-    <rect x="652" y="560" width="64" height="230" rx="30" fill="#D5DBC4"/>
-    <rect x="486" y="700" width="230" height="96" rx="26" fill="#DDE3CC"/>
-    <rect x="480" y="640" width="60" height="156" rx="26" fill="#D5DBC4"/>
-    <rect x="492" y="776" width="12" height="42" fill="#A58157"/><rect x="688" y="776" width="12" height="42" fill="#A58157"/>
-    <path d="M500 700H650" stroke="#C4CCB0" stroke-width="3"/>
+    <rect x="678" y="640" width="36" height="150" rx="14" fill="#3F8C63"/>
+    <rect x="652" y="560" width="64" height="230" rx="30" fill="#4F9B72"/>
+    <rect x="486" y="700" width="230" height="96" rx="26" fill="#6DB38D"/>
+    <rect x="480" y="640" width="60" height="156" rx="26" fill="#4F9B72"/>
+    <rect x="492" y="776" width="12" height="42" fill="#a86f3a"/><rect x="688" y="776" width="12" height="42" fill="#a86f3a"/>
+    <path d="M500 700H650" stroke="#8fc7a3" stroke-width="3"/>
   </g>
   <!-- mesa auxiliar -->
   <g>
-    <ellipse cx="400" cy="752" rx="58" ry="12" fill="#D2B48C"/><rect x="394" y="754" width="12" height="76" fill="#A58157"/><ellipse cx="400" cy="832" rx="38" ry="8" fill="#A58157"/>
-    <path d="M370 720h34l-3 30h-28z" fill="#FBF8F2" opacity=".9"/>
-    <path d="M424 728h28l-3 24h-22z" fill="#C98B6B"/>
-    <path d="M438 728C428 706 444 692 440 672M438 728C452 710 442 694 458 678" stroke="#5C6B4E" stroke-width="4" fill="none" stroke-linecap="round"/>
-    <ellipse cx="438" cy="668" rx="8" ry="16" fill="#8C9B7E" transform="rotate(-14 438 668)"/><ellipse cx="460" cy="674" rx="8" ry="16" fill="#5C6B4E" transform="rotate(22 460 674)"/>
+    <ellipse cx="400" cy="752" rx="58" ry="12" fill="#e3b07a"/><rect x="394" y="754" width="12" height="76" fill="#a86f3a"/><ellipse cx="400" cy="832" rx="38" ry="8" fill="#a86f3a"/>
+    <path d="M370 720h34l-3 30h-28z" fill="#fffcf5" opacity=".9"/>
+    <path d="M424 728h28l-3 24h-22z" fill="#e2704a"/>
+    <path d="M438 728C428 706 444 692 440 672M438 728C452 710 442 694 458 678" stroke="#2a7550" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <g class="sway"><ellipse cx="438" cy="668" rx="8" ry="16" fill="#5ba17a" transform="rotate(-14 438 668)"/><ellipse cx="460" cy="674" rx="8" ry="16" fill="#2a7550" transform="rotate(22 460 674)"/></g>
   </g>
 </svg>

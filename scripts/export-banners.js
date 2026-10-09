@@ -15,7 +15,7 @@ const root = path.resolve(__dirname, "..");
 const source = "file://" + path.join(root, "assets/banners/source/banner.html");
 const outDir = path.join(root, "assets/banners/primera-consulta");
 
-const styles = ["organic", "editorial", "gradient"];
+const styles = ["organic", "editorial", "sun"];
 const sizes = [
   { key: "og", width: 1200, height: 630 },     // compartir en redes y vista previa de enlaces
   { key: "square", width: 1080, height: 1080 }, // post de Instagram

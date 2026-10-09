@@ -55,7 +55,7 @@ Cada página tiene `<title>`, meta descripción, Open Graph y una jerarquía de 
 
 ## Imágenes
 
-No se han usado fotografías de personas. La web lleva cuatro **ilustraciones originales en SVG** (familia junto a una ventana, sala acogedora, familia en un olivar y pareja conversando) que usan la paleta del sitio, pesan unos 4 KB cada una y no dependen de terceros. Los personajes no tienen rasgos faciales, para respetar la discreción del servicio.
+No se han usado fotografías de personas. La web lleva cuatro **ilustraciones originales en SVG** (familia junto a una ventana, sala acogedora, familia en un olivar y pareja conversando) con la paleta del sitio. Pesan unos 6 KB cada una, no dependen de terceros y **están animadas desde dentro del propio archivo** (vapor de las tazas, hojas que se mecen, nubes que pasan, luz que respira); la animación se detiene sola con «movimiento reducido». Los personajes no tienen rasgos faciales, para respetar la discreción del servicio.
 
 Si más adelante se quieren fotografías reales:
 
@@ -69,13 +69,13 @@ Hay tres direcciones de arte en tres formatos, ya exportados en `assets/banners/
 
 | Dirección | Estilo | Tamaños |
 | --- | --- | --- |
-| `organic` | Natural / orgánica: ramas en salvia y oliva sobre marfil | 1200×630 (compartir en redes), 1080×1080 (Instagram), 820×312 (portada de Facebook) |
-| `editorial` | Rejilla con filetes finos y banda lateral oliva | los mismos tres |
-| `gradient` | Degradado suave y minimalista, con mucho aire | los mismos tres |
+| `organic` | Natural: ramas verdes y un sol sobre crema | 1200×630 (compartir en redes), 1080×1080 (Instagram), 820×312 (portada de Facebook) |
+| `editorial` | Banda de pino con la logomarca de las dos voces y filete amarillo | los mismos tres |
+| `sun` | Un sol grande sobre colinas verdes | los mismos tres |
 
-- **Fuente editable:** `assets/banners/source/banner.html`. El texto es HTML real y las formas son CSS/SVG; no hay imágenes externas. Se elige variante con `?style=organic|editorial|gradient&size=og|square|cover`.
+- **Fuente editable:** `assets/banners/source/banner.html`. El texto es HTML real y las formas son CSS/SVG; no hay imágenes externas. Se elige variante con `?style=organic|editorial|sun&size=og|square|cover`.
 - **Regenerar los PNG:** `node scripts/export-banners.js` (requiere `npm i playwright`). Comprueba que cada PNG tenga el tamaño exacto.
-- **Reglas aplicadas:** contenido dentro de la zona segura, un solo botón de acción abajo a la derecha (mínimo 44 px), titular de al menos 32 px, texto de al menos 16 px, dos tipografías y contraste superior a 4,5:1.
+- **Reglas aplicadas:** contenido dentro de la zona segura, un solo botón de acción abajo a la derecha (mínimo 44 px), titular de al menos 32 px, texto de al menos 16 px, dos tipografías (Fraunces y Figtree) y contraste superior a 4,5:1. La firma del banner `sun` va en una pastilla clara para asegurar el contraste sobre las colinas.
 - **Vista previa al compartir la web:** `index.html` usa `organic-1200x630.png` como `og:image`. Hay que sustituir `[dominio-del-centro]` por el dominio real, porque esa etiqueta necesita una URL absoluta.
 - **Pendiente de confirmar:** no hay logo, fotografía ni nombre definitivo del centro, así que los banners usan solo el lema y la descripción de la web. Cuando existan, se añaden en `banner.html`.
 
@@ -90,15 +90,36 @@ node tests/break-ui.js
 
 Úsala cada vez que cambies la maqueta o añadas contenido largo en `js/config.js`.
 
-## Criterios de diseño y movimiento
+## Concepto de diseño: «la luz del día»
 
-- Curvas de salida fuertes, sin `ease-in`; ninguna animación `keyframes` en elementos que se activan a menudo.
-- Interacciones por debajo de 300 ms. Excepciones justificadas: el revelado de la imagen principal (600 ms, es editorial y ocurre una vez) y el desplegado de servicios, que anima la altura con `grid-template-rows`.
-- Un solo momento de animación de autor (la entrada de la portada); el resto de la página está quieta.
+La página amanece contigo. Es el rasgo que la distingue de las webs habituales del sector (beige apagado, salvia pastel, fotos de manos y atardeceres):
+
+- **Paleta clara y con carácter:** crema y papel como base, un verde pino profundo para las secciones oscuras, amarillo sol, verde hoja y arcilla para la acción principal. Todos los contrastes cumplen 4,5:1 (el más bajo, 4,59:1).
+- **Tipografía:** Fraunces para los titulares (cálida y con carácter) y Figtree para el texto (clara y legible).
+- **Logomarca propia:** dos círculos que se solapan, «dos voces que se encuentran». El mismo motivo se repite en el banner editorial y en la banda animada de «Cómo trabajamos».
+- **Arco de ventana** como marco de las imágenes, y secciones alternas claras y oscuras para dar ritmo.
+
+## Movimiento
+
+Cada tipo de elemento entra a su manera, con un propósito:
+
+| Elemento | Movimiento | Propósito |
+| --- | --- | --- |
+| Portada | Sale el sol, los titulares entran palabra a palabra, el subrayado se dibuja y el formulario aparece | Dar la bienvenida y llevar la mirada a la acción |
+| Titulares | Entran por palabras al llegar a pantalla | Marcar el ritmo de lectura |
+| Imágenes | Se descubren con un recorte (arco, izquierda o arriba) | Que cada una tenga su momento |
+| Listas | En cascada, con 80 ms entre elementos | Mostrar que forman un grupo |
+| Ilustraciones | Bucles lentos dentro del SVG (vapor, hojas, nubes) | Dar vida sin distraer |
+| «Dos voces» | Los círculos se acercan al bajar hasta solaparse | Explicar el proceso: del desencuentro al entendimiento |
+| Servicios y formulario | Transiciones de 150 a 220 ms, abrir más despacio que cerrar | Respuesta inmediata |
+
+Reglas: curvas de salida fuertes y sin `ease-in`, solo `transform`, `opacity` y `clip-path` (la excepción es el desplegado de servicios, que anima `grid-template-rows`), todos los `:hover` limitados a ratón, y **movimiento reducido** respetado: no hay bucles, ni desplazamientos, y todo el contenido está visible desde el principio. Los revelados duran entre 600 y 1800 ms porque son entradas de página y no interacciones repetidas.
+
+## Criterios de interfaz
+
 - La acción principal está disponible en la primera pantalla en su forma de trabajo: un formulario de inicio rápido que pasa los datos al asistente.
-- Todos los efectos `:hover` van dentro de `@media (hover: hover) and (pointer: fine)`.
-- Respeta `prefers-reduced-motion`.
 - Móvil: sin destello al tocar, toque inmediato, zonas seguras del iPhone y teclado adecuado en cada campo.
+- Se evitan a propósito: etiquetas pequeñas sobre los títulos, tarjetas iguales de icono + título + texto, numeración decorativa, bordes laterales de color, texto con degradado y la misma animación repetida en cada sección.
 
 ## Verificación realizada
 

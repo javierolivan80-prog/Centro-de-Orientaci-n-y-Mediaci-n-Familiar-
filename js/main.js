@@ -88,28 +88,132 @@
     });
   }
 
-  /* ---------- Revelado al entrar en pantalla ---------- */
-  var revealItems = document.querySelectorAll(".reveal");
+  /* ---------- Movimiento: la página amanece contigo ----------
+   Titulares: entran palabra a palabra. Imágenes: se descubren con un recorte.
+   Listas: en cascada. Portada: sale el sol. Cada cosa entra a su manera. */
+  var hero = document.querySelector("[data-hero]");
 
-  if ("IntersectionObserver" in window && !reduceMotion) {
-    var observer = new IntersectionObserver(
+  function splitWords(root) {
+    var index = 0;
+    var isHeading = /^H[1-6]$/.test(root.tagName);
+    if (isHeading) root.setAttribute("aria-label", root.textContent.replace(/\s+/g, " ").trim());
+
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var parts = child.textContent.split(/(\s+)/);
+          var frag = document.createDocumentFragment();
+          parts.forEach(function (part) {
+            if (part === "") return;
+            if (/^\s+$/.test(part)) {
+              frag.appendChild(document.createTextNode(" "));
+              return;
+            }
+            var outer = document.createElement("span");
+            outer.className = "w";
+            var inner = document.createElement("span");
+            inner.className = "wi";
+            inner.style.setProperty("--i", String(index++));
+            inner.textContent = part;
+            if (isHeading) outer.setAttribute("aria-hidden", "true");
+            outer.appendChild(inner);
+            frag.appendChild(outer);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1 && child.tagName.toLowerCase() !== "svg") {
+          walk(child);
+        }
+      });
+    })(root);
+  }
+
+  var motionTargets = document.querySelectorAll("[data-split], [data-wipe], [data-stagger]");
+
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    motionTargets.forEach(function (el) { el.classList.add("is-in"); });
+    if (hero) hero.classList.add("is-in");
+  } else {
+    document.querySelectorAll("[data-split]").forEach(splitWords);
+
+    // Un elemento totalmente recortado por su propio clip-path no cuenta como visible para
+    // IntersectionObserver, así que las imágenes con recorte se observan a través de su contenedor.
+    var wipeOf = new WeakMap();
+
+    var seen = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
+          if (!entry.isIntersecting) return;
+          (wipeOf.get(entry.target) || entry.target).classList.add("is-in");
+          seen.unobserve(entry.target);
         });
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.18 }
     );
-    revealItems.forEach(function (el) {
-      observer.observe(el);
+
+    motionTargets.forEach(function (el) {
+      if (hero && hero.contains(el)) return; // la portada tiene su propia secuencia
+      if (el.hasAttribute("data-wipe") && el.parentElement) {
+        wipeOf.set(el.parentElement, el);
+        seen.observe(el.parentElement);
+      } else {
+        seen.observe(el);
+      }
     });
-  } else {
-    revealItems.forEach(function (el) {
-      el.classList.add("is-visible");
-    });
+
+    // Portada: arranca cuando las fuentes están listas (o a los 700 ms como máximo)
+    var started = false;
+    function startHero() {
+      if (started || !hero) return;
+      started = true;
+      requestAnimationFrame(function () {
+        hero.classList.add("is-in");
+        hero.querySelectorAll("[data-split]").forEach(function (el) { el.classList.add("is-in"); });
+      });
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(startHero);
+    setTimeout(startHero, 700);
+  }
+
+  /* Dos voces que se acercan al bajar por «Cómo trabajamos» (solo transform, por JS) */
+  var voices = document.getElementById("voices");
+  if (voices) {
+    var voiceA = voices.querySelector(".voice-a");
+    var voiceB = voices.querySelector(".voice-b");
+    var ticking = false;
+
+    var placeVoices = function (progress) {
+      var w = voices.clientWidth;
+      var d = voiceA.offsetWidth;
+      var overlap = d * 0.5;
+      var startA = w * 0.04;
+      var startB = w - d - w * 0.04;
+      var endA = w / 2 - d + overlap / 2;
+      var endB = w / 2 - overlap / 2;
+      var ax = startA + (endA - startA) * progress;
+      var bx = startB + (endB - startB) * progress;
+      voiceA.style.transform = "translate3d(" + ax.toFixed(1) + "px,0,0)";
+      voiceB.style.transform = "translate3d(" + bx.toFixed(1) + "px,0,0)";
+    };
+
+    var updateVoices = function () {
+      ticking = false;
+      if (reduceMotion) return placeVoices(1);
+      var r = voices.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var t = Math.min(1, Math.max(0, (vh * 0.95 - r.top) / (vh * 0.5)));
+      placeVoices(t * t * (3 - 2 * t));
+    };
+
+    var requestVoices = function () {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateVoices);
+      }
+    };
+
+    window.addEventListener("scroll", requestVoices, { passive: true });
+    window.addEventListener("resize", requestVoices);
+    updateVoices();
   }
 
   /* ---------- Servicios desplegables ---------- */

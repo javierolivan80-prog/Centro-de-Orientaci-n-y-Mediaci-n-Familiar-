@@ -76,7 +76,7 @@ const problems = [];
           document.querySelectorAll("body *").forEach((el) => {
             const cs = getComputedStyle(el);
             if (cs.position === "fixed" || cs.visibility === "hidden" || el.closest("[inert]")) return;
-            if (el.closest(".hp") || el.closest(".panel:not(.is-active)")) return;
+            if (el.closest(".hp") || el.closest(".panel:not(.is-active)") || el.closest(".hero-sun-wrap")) return; // el sol decorativo se recorta a propósito
             const r = el.getBoundingClientRect();
             if (r.width > 0 && r.right > vw + 1) out.push(el.tagName.toLowerCase() + "." + (el.className || "").toString().split(" ")[0]);
           });

@@ -1,39 +1,68 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="t d">
+  <style>
+.sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 6s ease-in-out infinite alternate}
+.sway.b{animation-duration:7.5s;animation-delay:-2s}
+@keyframes sway{from{transform:rotate(-2.6deg)}to{transform:rotate(2.6deg)}}
+.grove{transform-box:fill-box;transform-origin:50% 100%;animation:grove 9s ease-in-out infinite alternate}
+@keyframes grove{from{transform:rotate(-.5deg)}to{transform:rotate(.5deg)}}
+.steam{transform-box:fill-box;animation:steam 3.4s ease-out infinite;opacity:0}
+.steam.b{animation-delay:-1.7s}
+@keyframes steam{0%{opacity:0;transform:translateY(8px)}30%{opacity:.85}100%{opacity:0;transform:translateY(-20px)}}
+.glow{transform-box:fill-box;transform-origin:50% 50%;animation:glow 6s ease-in-out infinite alternate}
+@keyframes glow{from{transform:scale(1);opacity:.7}to{transform:scale(1.12);opacity:1}}
+.light{animation:light 8s ease-in-out infinite alternate}
+@keyframes light{from{opacity:.5}to{opacity:1}}
+.nod{transform-box:fill-box;transform-origin:50% 100%;animation:nod 5s ease-in-out infinite alternate}
+.nod.b{animation-duration:6.4s;animation-delay:-2.2s}
+@keyframes nod{from{transform:rotate(-1.1deg)}to{transform:rotate(1.1deg)}}
+.drift{animation:drift 26s ease-in-out infinite alternate}
+.drift.b{animation-duration:34s;animation-delay:-9s}
+@keyframes drift{from{transform:translateX(-14px)}to{transform:translateX(30px)}}
+.bob{animation:bob 1.05s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+.breathe{transform-box:fill-box;transform-origin:50% 0;animation:breathe 7s ease-in-out infinite alternate}
+@keyframes breathe{from{transform:scaleX(1)}to{transform:scaleX(1.03)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.steam{opacity:0}}
+</style>
   <title id="t">Familia paseando por un olivar</title>
   <desc id="d">Ilustración de cuatro personas, dos adultos y dos niños, caminando de la mano de espaldas por un camino entre olivos al atardecer.</desc>
   <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F0DF"/><stop offset=".7" stop-color="#F2E4C8"/><stop offset="1" stop-color="#EDE3D3"/></linearGradient>
-    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FBE6B6" stop-opacity=".9"/><stop offset="1" stop-color="#FBE6B6" stop-opacity="0"/></radialGradient>
-    <g id="tree"><rect x="-5" y="0" width="10" height="64" fill="#6E6055"/><ellipse cx="0" cy="-6" rx="56" ry="40" fill="#7C8C6E"/><ellipse cx="-34" cy="8" rx="38" ry="28" fill="#8C9B7E"/><ellipse cx="36" cy="10" rx="38" ry="28" fill="#6F7F60"/></g>
+    <radialGradient id="sunglow"><stop offset="0" stop-color="#FFE08A" stop-opacity=".95"/><stop offset=".55" stop-color="#FFD66B" stop-opacity=".35"/><stop offset="1" stop-color="#FFD66B" stop-opacity="0"/></radialGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cde8f0"/><stop offset=".7" stop-color="#fff0cf"/><stop offset="1" stop-color="#f6e3b8"/></linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f7c65b" stop-opacity=".9"/><stop offset="1" stop-color="#f7c65b" stop-opacity="0"/></radialGradient>
+    <g id="tree"><rect x="-5" y="0" width="10" height="64" fill="#5a4a3c"/><ellipse cx="0" cy="-6" rx="56" ry="40" fill="#3f8c63"/><ellipse cx="-34" cy="8" rx="38" ry="28" fill="#5ba17a"/><ellipse cx="36" cy="10" rx="38" ry="28" fill="#3f8c63"/></g>
   </defs>
   <rect width="1200" height="800" fill="url(#sky)"/>
   <circle cx="880" cy="250" r="260" fill="url(#glow)"/>
-  <circle cx="880" cy="250" r="86" fill="#FBE9BE"/>
-  <path d="M0 420C160 360 320 380 480 410S800 400 1200 350V800H0z" fill="#CBD2BC"/>
-  <path d="M0 480C200 420 380 450 560 480S900 470 1200 430V800H0z" fill="#A3B095"/>
-  <g><use href="#tree" transform="translate(180 430) scale(.7)"/><use href="#tree" transform="translate(420 450) scale(.62)"/><use href="#tree" transform="translate(980 420) scale(.66)"/><use href="#tree" transform="translate(1120 440) scale(.6)"/></g>
-  <path d="M0 560C220 500 420 540 640 560S960 540 1200 500V800H0z" fill="#8C9B7E"/>
-  <g><use href="#tree" transform="translate(110 560) scale(1.05)"/><use href="#tree" transform="translate(300 590) scale(.9)"/><use href="#tree" transform="translate(900 560) scale(1)"/><use href="#tree" transform="translate(1090 590) scale(1.15)"/></g>
-  <path d="M0 640C260 600 480 640 700 650S1000 640 1200 610V800H0z" fill="#5C6B4E"/>
+  <circle class="glow" cx="880" cy="250" r="150" fill="url(#sunglow)" opacity="1"/>
+  <circle cx="880" cy="250" r="86" fill="#F7C65B"/>
+  <g class="drift"><ellipse cx="300" cy="190" rx="90" ry="22" fill="#fff" opacity=".8"/><ellipse cx="360" cy="168" rx="56" ry="18" fill="#fff" opacity=".8"/></g>
+  <g class="drift b"><ellipse cx="620" cy="130" rx="70" ry="18" fill="#fff" opacity=".7"/></g>
+  <path d="M0 420C160 360 320 380 480 410S800 400 1200 350V800H0z" fill="#bfe3cc"/>
+  <path d="M0 480C200 420 380 450 560 480S900 470 1200 430V800H0z" fill="#7fbf95"/>
+  <g class="grove"><use href="#tree" transform="translate(180 430) scale(.7)"/><use href="#tree" transform="translate(420 450) scale(.62)"/><use href="#tree" transform="translate(980 420) scale(.66)"/><use href="#tree" transform="translate(1120 440) scale(.6)"/></g>
+  <path d="M0 560C220 500 420 540 640 560S960 540 1200 500V800H0z" fill="#5ba17a"/>
+  <g class="grove"><use href="#tree" transform="translate(110 560) scale(1.05)"/><use href="#tree" transform="translate(300 590) scale(.9)"/><use href="#tree" transform="translate(900 560) scale(1)"/><use href="#tree" transform="translate(1090 590) scale(1.15)"/></g>
+  <path d="M0 640C260 600 480 640 700 650S1000 640 1200 610V800H0z" fill="#2a7550"/>
   <!-- camino -->
-  <path d="M480 800C520 700 560 620 600 540C614 512 624 500 632 492L650 492C660 504 670 530 690 566C730 640 770 720 820 800z" fill="#E7D6B6"/>
-  <path d="M560 800C580 720 604 650 624 590" stroke="#D8C49E" stroke-width="3" fill="none" opacity=".7"/>
+  <path d="M480 800C520 700 560 620 600 540C614 512 624 500 632 492L650 492C660 504 670 530 690 566C730 640 770 720 820 800z" fill="#f3dca8"/>
+  <path d="M560 800C580 720 604 650 624 590" stroke="#e6c98a" stroke-width="3" fill="none" opacity=".7"/>
   <!-- familia de espaldas -->
   <g transform="translate(650 650) scale(1.55) translate(-650 -650)">
     <!-- adulto 1 -->
-    <g><rect x="590" y="584" width="9" height="62" fill="#4A3A30"/><rect x="603" y="584" width="9" height="62" fill="#4A3A30"/>
-    <path d="M582 590C580 546 590 526 601 526S622 546 620 590z" fill="#5C6B4E"/><circle cx="601" cy="512" r="14" fill="#E3B48F"/><path d="M587 510C587 496 598 492 606 494C614 496 616 504 615 510C610 502 598 502 587 510z" fill="#3A332D"/></g>
+    <g class="bob"><rect x="590" y="584" width="9" height="62" fill="#2a211c"/><rect x="603" y="584" width="9" height="62" fill="#2a211c"/>
+    <path d="M582 590C580 546 590 526 601 526S622 546 620 590z" fill="#2A7550"/><circle cx="601" cy="512" r="14" fill="#f0c6a0"/><path d="M587 510C587 496 598 492 606 494C614 496 616 504 615 510C610 502 598 502 587 510z" fill="#2a211c"/></g>
     <!-- niño 1 -->
-    <g><rect x="633" y="606" width="7" height="40" fill="#4A3A30"/><rect x="643" y="606" width="7" height="40" fill="#4A3A30"/>
-    <path d="M627 612C626 582 633 568 641 568S656 582 655 612z" fill="#C98B6B"/><circle cx="641" cy="558" r="11" fill="#E8C4A0"/><path d="M630 556C630 546 638 544 644 546C650 548 652 554 651 558C646 552 636 552 630 556z" fill="#7A5236"/></g>
+    <g class="bob" style="animation-delay:-.35s"><rect x="633" y="606" width="7" height="40" fill="#2a211c"/><rect x="643" y="606" width="7" height="40" fill="#2a211c"/>
+    <path d="M627 612C626 582 633 568 641 568S656 582 655 612z" fill="#e2704a"/><circle cx="641" cy="558" r="11" fill="#f5d0ae"/><path d="M630 556C630 546 638 544 644 546C650 548 652 554 651 558C646 552 636 552 630 556z" fill="#6b4a33"/></g>
     <!-- niño 2 -->
-    <g><rect x="664" y="610" width="7" height="38" fill="#4A3A30"/><rect x="674" y="610" width="7" height="38" fill="#4A3A30"/>
-    <path d="M658 614C657 586 664 572 672 572S687 586 686 614z" fill="#D9C79B"/><circle cx="672" cy="562" r="11" fill="#E3B48F"/><path d="M661 560C661 550 669 548 675 550C681 552 683 558 682 562C677 556 667 556 661 560z" fill="#4A3A30"/></g>
+    <g class="bob" style="animation-delay:-.7s"><rect x="664" y="610" width="7" height="38" fill="#2a211c"/><rect x="674" y="610" width="7" height="38" fill="#2a211c"/>
+    <path d="M658 614C657 586 664 572 672 572S687 586 686 614z" fill="#F7C65B"/><circle cx="672" cy="562" r="11" fill="#f0c6a0"/><path d="M661 560C661 550 669 548 675 550C681 552 683 558 682 562C677 556 667 556 661 560z" fill="#2a211c"/></g>
     <!-- adulto 2 -->
-    <g><rect x="700" y="584" width="9" height="62" fill="#3A332D"/><rect x="713" y="584" width="9" height="62" fill="#3A332D"/>
-    <path d="M692 590C690 544 700 524 711 524S732 544 730 590z" fill="#C98B6B"/><circle cx="711" cy="510" r="14" fill="#D9A982"/><path d="M697 508C697 494 708 490 716 492C724 494 726 502 725 508C720 500 708 500 697 508z" fill="#3A332D"/></g>
+    <g class="bob" style="animation-delay:-.15s"><rect x="700" y="584" width="9" height="62" fill="#2a211c"/><rect x="713" y="584" width="9" height="62" fill="#2a211c"/>
+    <path d="M692 590C690 544 700 524 711 524S732 544 730 590z" fill="#E2704A"/><circle cx="711" cy="510" r="14" fill="#d69a6b"/><path d="M697 508C697 494 708 490 716 492C724 494 726 502 725 508C720 500 708 500 697 508z" fill="#2a211c"/></g>
     <!-- manos -->
-    <path d="M620 566L634 580M650 584L664 588M686 590L698 580" stroke="#E3B48F" stroke-width="5" stroke-linecap="round"/>
+    <path d="M620 566L634 580M650 584L664 588M686 590L698 580" stroke="#f0c6a0" stroke-width="5" stroke-linecap="round"/>
   </g>
-  <path d="M0 740C300 700 520 760 760 750S1040 720 1200 730V800H0z" fill="#4A5740"/>
+  <path d="M0 740C300 700 520 760 760 750S1040 720 1200 730V800H0z" fill="#123d2e"/>
 </svg>
