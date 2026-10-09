@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="color-scheme" content="light">
 
   <!-- SEO -->
   <title>Orientación matrimonial, de pareja y mediación familiar | Centro de Orientación y Mediación Familiar</title>
@@ -46,6 +47,7 @@
           <li><a href="#servicios">Servicios</a></li>
           <li><a href="#como-trabajamos">Cómo trabajamos</a></li>
           <li><a href="#contacto">Contacto</a></li>
+          <li class="nav-cta"><a class="btn btn-primary" href="#contacto">Solicitar una primera consulta</a></li>
         </ul>
       </nav>
 
@@ -374,19 +376,19 @@
 
                 <div class="field">
                   <label for="nombre">Nombre <span class="req" aria-hidden="true">*</span></label>
-                  <input id="nombre" name="nombre" type="text" autocomplete="name" required minlength="2" maxlength="100" aria-describedby="nombre-error">
+                  <input id="nombre" name="nombre" type="text" autocomplete="name" autocapitalize="words" enterkeyhint="next" required minlength="2" maxlength="100" aria-describedby="nombre-error">
                   <p class="error" id="nombre-error" role="alert" hidden></p>
                 </div>
 
                 <div class="field">
                   <label for="email">Correo electrónico <span class="req" aria-hidden="true">*</span></label>
-                  <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="email-error">
+                  <input id="email" name="email" type="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" required maxlength="254" aria-describedby="email-error">
                   <p class="error" id="email-error" role="alert" hidden></p>
                 </div>
 
                 <div class="field">
                   <label for="telefono">Teléfono <span class="optional">(opcional)</span></label>
-                  <input id="telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="telefono-error">
+                  <input id="telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" enterkeyhint="next" maxlength="20" aria-describedby="telefono-error">
                   <p class="error" id="telefono-error" role="alert" hidden></p>
                 </div>
               </section>

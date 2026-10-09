@@ -53,6 +53,25 @@ Notas:
 
 Cada página tiene `<title>`, meta descripción, Open Graph y una jerarquía de encabezados con un único `h1`. Las palabras clave del brief (orientación familiar, orientación matrimonial, orientación de pareja, mediación familiar, conflictos familiares y comunicación en pareja) aparecen de forma natural en los títulos y textos.
 
+## Pruebas de datos extremos
+
+`tests/break-ui.js` carga la web con valores muy largos pero realistas (nombres, correos, direcciones, horarios y redes) y la revisa a 320, 375, 768 y 1440 px, también con el texto ampliado al 200 %. Falla si algo se sale de la pantalla o queda cortado.
+
+```
+npm i playwright
+node tests/break-ui.js
+```
+
+Úsala cada vez que cambies la maqueta o añadas contenido largo en `js/config.js`.
+
+## Criterios de diseño y movimiento
+
+- Curvas de salida fuertes, sin `ease-in`; ninguna animación `keyframes` en elementos que se activan a menudo.
+- Interacciones por debajo de 300 ms. Excepciones justificadas: el revelado de la imagen principal (600 ms, es editorial y ocurre una vez) y el desplegado de servicios, que anima la altura con `grid-template-rows`.
+- Todos los efectos `:hover` van dentro de `@media (hover: hover) and (pointer: fine)`.
+- Respeta `prefers-reduced-motion`.
+- Móvil: sin destello al tocar, toque inmediato, zonas seguras del iPhone y teclado adecuado en cada campo.
+
 ## Verificación realizada
 
 - Sin desbordamiento horizontal en 375, 820 y 1366 px de ancho.
