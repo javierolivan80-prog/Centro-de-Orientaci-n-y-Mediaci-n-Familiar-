@@ -40,7 +40,7 @@ Notas:
 ## Antes de publicar
 
 - [ ] Sustituir todos los valores entre corchetes (en `index.html`, `legal.html` y `js/config.js`).
-- [ ] Completar `<link rel="canonical">` y `og:url` con el dominio definitivo.
+- [ ] Completar `<link rel="canonical">`, `og:url` y `og:image` con el dominio definitivo.
 - [ ] Desplegar `backend/apps-script/Code.gs`, configurar `formEndpoint` y probar un envío real que llegue al correo del centro.
 - [ ] Sustituir las fotografías pendientes.
 - [ ] Revisar y adaptar `legal.html` con un profesional jurídico (LOPDGDD, RGPD, LSSI y cookies). Esta página es una base provisional, no asesoramiento legal.
@@ -52,6 +52,22 @@ Notas:
 ## SEO
 
 Cada página tiene `<title>`, meta descripción, Open Graph y una jerarquía de encabezados con un único `h1`. Las palabras clave del brief (orientación familiar, orientación matrimonial, orientación de pareja, mediación familiar, conflictos familiares y comunicación en pareja) aparecen de forma natural en los títulos y textos.
+
+## Banners para redes sociales
+
+Hay tres direcciones de arte en tres formatos, ya exportados en `assets/banners/primera-consulta/`:
+
+| Dirección | Estilo | Tamaños |
+| --- | --- | --- |
+| `organic` | Natural / orgánica: ramas en salvia y oliva sobre marfil | 1200×630 (compartir en redes), 1080×1080 (Instagram), 820×312 (portada de Facebook) |
+| `editorial` | Rejilla con filetes finos y banda lateral oliva | los mismos tres |
+| `gradient` | Degradado suave y minimalista, con mucho aire | los mismos tres |
+
+- **Fuente editable:** `assets/banners/source/banner.html`. El texto es HTML real y las formas son CSS/SVG; no hay imágenes externas. Se elige variante con `?style=organic|editorial|gradient&size=og|square|cover`.
+- **Regenerar los PNG:** `node scripts/export-banners.js` (requiere `npm i playwright`). Comprueba que cada PNG tenga el tamaño exacto.
+- **Reglas aplicadas:** contenido dentro de la zona segura, un solo botón de acción abajo a la derecha (mínimo 44 px), titular de al menos 32 px, texto de al menos 16 px, dos tipografías y contraste superior a 4,5:1.
+- **Vista previa al compartir la web:** `index.html` usa `organic-1200x630.png` como `og:image`. Hay que sustituir `[dominio-del-centro]` por el dominio real, porque esa etiqueta necesita una URL absoluta.
+- **Pendiente de confirmar:** no hay logo, fotografía ni nombre definitivo del centro, así que los banners usan solo el lema y la descripción de la web. Cuando existan, se añaden en `banner.html`.
 
 ## Pruebas de datos extremos
 
