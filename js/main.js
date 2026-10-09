@@ -2,7 +2,6 @@
   "use strict";
 
   var config = window.SITE_CONFIG || {};
-  var root = document.documentElement;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Datos editables (js/config.js) ---------- */
@@ -31,6 +30,7 @@
     title.className = "footer-title";
     title.textContent = "Redes";
     var list = document.createElement("ul");
+    list.className = "footer-links";
     config.socials.forEach(function (item) {
       var li = document.createElement("li");
       var a = document.createElement("a");
@@ -49,7 +49,7 @@
     el.textContent = new Date().getFullYear();
   });
 
-  /* ---------- Cabecera: borde al hacer scroll ---------- */
+  /* ---------- Cabecera y botón volver arriba ---------- */
   var header = document.querySelector(".site-header");
   var toTop = document.querySelector(".to-top");
 
@@ -75,13 +75,11 @@
     toggle.addEventListener("click", function () {
       setMenu(toggle.getAttribute("aria-expanded") !== "true");
     });
-
     nav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
         setMenu(false);
       });
     });
-
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
         setMenu(false);
@@ -114,12 +112,54 @@
     });
   }
 
-  /* ---------- Formulario de consulta (solo en index.html) ---------- */
+  /* ---------- Servicios desplegables ---------- */
+  var services = document.querySelectorAll(".service");
   var form = document.getElementById("consulta-form");
+
+  services.forEach(function (service) {
+    var toggleBtn = service.querySelector(".service-toggle");
+    var panel = service.querySelector(".service-panel");
+    var requestBtn = service.querySelector("[data-request]");
+
+    toggleBtn.addEventListener("click", function () {
+      var open = toggleBtn.getAttribute("aria-expanded") !== "true";
+      toggleBtn.setAttribute("aria-expanded", String(open));
+      toggleBtn.textContent = open ? "Menos información" : "Más información";
+      service.classList.toggle("is-open", open);
+      // Fuera del árbol de accesibilidad cuando está cerrado
+      if (open) {
+        panel.removeAttribute("inert");
+      } else {
+        panel.setAttribute("inert", "");
+      }
+    });
+
+    requestBtn.addEventListener("click", function () {
+      if (!form) return;
+      selectMotivo(service.getAttribute("data-motivo"));
+      goToStep(1);
+      document.getElementById("contacto").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+      setTimeout(function () {
+        document.getElementById("nombre").focus({ preventScroll: true });
+      }, reduceMotion ? 0 : 500);
+    });
+  });
+
+  /* ---------- Asistente de solicitud de consulta (tres pasos) ---------- */
   if (!form) return;
+
   var status = document.getElementById("form-status");
-  var submitButton = form.querySelector('button[type="submit"]');
+  var count = document.getElementById("form-count");
+  var progressBar = document.getElementById("progress-bar");
+  var panels = Array.prototype.slice.call(form.querySelectorAll(".panel"));
+  var prevBtn = form.querySelector("[data-prev]");
+  var nextBtn = form.querySelector("[data-next]");
+  var submitBtn = form.querySelector("[data-submit]");
+  var successBox = document.getElementById("form-success");
+  var restartBtn = successBox.querySelector("[data-restart]");
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var currentStep = 1;
+  var TOTAL_STEPS = panels.length;
 
   var rules = {
     nombre: function (value) {
@@ -143,59 +183,117 @@
       }
       return "";
     },
+    mensaje: function (value) {
+      return value.length > 1000 ? "El mensaje es demasiado largo (máximo 1000 caracteres)." : "";
+    },
   };
 
-  function getField(name) {
+  function field(name) {
     return form.elements.namedItem(name);
   }
 
   function setError(name, message) {
     var errorEl = document.getElementById(name + "-error");
-    var input = getField(name);
+    var input = field(name);
     if (errorEl) {
       errorEl.textContent = message;
       errorEl.hidden = !message;
     }
-    if (input && input.setAttribute) {
+    if (input && input.setAttribute && !input.length) {
       input.setAttribute("aria-invalid", message ? "true" : "false");
     }
     return !message;
   }
 
-  function validateAll() {
-    var firstInvalid = null;
-    var valid = true;
-
-    function check(ok, focusTarget) {
-      if (!ok) {
-        valid = false;
-        if (!firstInvalid) firstInvalid = focusTarget;
-      }
-    }
-
-    check(setError("nombre", rules.nombre(getField("nombre").value)), getField("nombre"));
-    check(setError("email", rules.email(getField("email").value)), getField("email"));
-    check(setError("telefono", rules.telefono(getField("telefono").value)), getField("telefono"));
-
-    var preferenciaChecked = form.querySelector('input[name="preferencia"]:checked');
-    check(
-      setError("preferencia", preferenciaChecked ? "" : "Elige cómo prefieres que te contactemos."),
-      form.querySelector('input[name="preferencia"]')
-    );
-
-    var privacidad = getField("privacidad");
-    check(
-      setError("privacidad", privacidad.checked ? "" : "Necesitamos que aceptes la política de privacidad para continuar."),
-      privacidad
-    );
-
-    if (firstInvalid) firstInvalid.focus();
-    return valid;
+  function selectMotivo(value) {
+    var option = form.querySelector('input[name="motivo"][value="' + value + '"]');
+    if (option) option.checked = true;
   }
 
-  // Validación al salir del campo, para no molestar mientras se escribe
+  function setStatus(message, type) {
+    status.textContent = message;
+    status.classList.toggle("is-error", type === "error");
+    status.classList.toggle("is-warning", type === "warning");
+  }
+
+  /* Validación por paso. Devuelve el primer campo con error, o null si todo está bien */
+  function validateStep(step) {
+    var firstInvalid = null;
+    function check(ok, target) {
+      if (!ok && !firstInvalid) firstInvalid = target;
+    }
+
+    if (step === 1) {
+      check(setError("nombre", rules.nombre(field("nombre").value)), field("nombre"));
+      check(setError("email", rules.email(field("email").value)), field("email"));
+      check(setError("telefono", rules.telefono(field("telefono").value)), field("telefono"));
+    }
+
+    if (step === 2) {
+      check(setError("mensaje", rules.mensaje(field("mensaje").value)), field("mensaje"));
+    }
+
+    if (step === 3) {
+      var preferencia = form.querySelector('input[name="preferencia"]:checked');
+      var preferenciaInput = form.querySelector('input[name="preferencia"]');
+      check(
+        setError("preferencia", preferencia ? "" : "Elige cómo prefieres que te contactemos."),
+        preferenciaInput
+      );
+      var privacidad = field("privacidad");
+      check(
+        setError("privacidad", privacidad.checked ? "" : "Necesitamos que aceptes la política de privacidad para continuar."),
+        privacidad
+      );
+    }
+
+    return firstInvalid;
+  }
+
+  function focusPanelTitle(step) {
+    var title = document.getElementById("step-title-" + step);
+    if (title) title.focus({ preventScroll: true });
+  }
+
+  function goToStep(step, moveFocus) {
+    currentStep = step;
+    panels.forEach(function (panel) {
+      var active = Number(panel.getAttribute("data-step")) === step;
+      panel.classList.toggle("is-active", active);
+      panel.setAttribute("aria-hidden", String(!active));
+      if (active) {
+        panel.removeAttribute("inert");
+      } else {
+        panel.setAttribute("inert", "");
+      }
+    });
+
+    count.textContent = "Paso " + step + " de " + TOTAL_STEPS;
+    progressBar.style.transform = "scaleX(" + step / TOTAL_STEPS + ")";
+    prevBtn.hidden = step === 1;
+    nextBtn.hidden = step === TOTAL_STEPS;
+    submitBtn.hidden = step !== TOTAL_STEPS;
+    setStatus("", "");
+    if (moveFocus) focusPanelTitle(step);
+  }
+
+  nextBtn.addEventListener("click", function () {
+    var invalid = validateStep(currentStep);
+    if (invalid) {
+      invalid.focus();
+      setStatus("Revisa los campos marcados para continuar.", "error");
+      return;
+    }
+    goToStep(Math.min(currentStep + 1, TOTAL_STEPS), true);
+  });
+
+  prevBtn.addEventListener("click", function () {
+    goToStep(Math.max(currentStep - 1, 1), true);
+  });
+
+  // Validación al salir de cada campo de texto, sin molestar mientras se escribe
   ["nombre", "email", "telefono"].forEach(function (name) {
-    var input = getField(name);
+    var input = field(name);
     input.addEventListener("blur", function () {
       if (input.value.trim() !== "" || input.getAttribute("aria-invalid") === "true") {
         setError(name, rules[name](input.value));
@@ -209,12 +307,6 @@
     if (target.name === "privacidad") setError("privacidad", "");
   });
 
-  function setStatus(message, type) {
-    status.textContent = message;
-    status.classList.toggle("is-error", type === "error");
-    status.classList.toggle("is-warning", type === "warning");
-  }
-
   function buildPayload() {
     var data = new FormData(form);
     return {
@@ -222,36 +314,63 @@
       email: String(data.get("email") || "").trim(),
       telefono: String(data.get("telefono") || "").trim(),
       motivo: String(data.get("motivo") || ""),
+      mensaje: String(data.get("mensaje") || "").trim(),
       preferencia: String(data.get("preferencia") || ""),
       privacidad: data.get("privacidad") === "on",
-      fecha: new Date().toISOString(),
       origen: window.location.href,
     };
   }
 
   function setSending(sending) {
-    submitButton.disabled = sending;
-    submitButton.setAttribute("aria-busy", String(sending));
-    submitButton.textContent = sending ? "Enviando…" : "Solicitar una consulta";
+    submitBtn.disabled = sending;
+    prevBtn.disabled = sending;
+    submitBtn.setAttribute("aria-busy", String(sending));
+    submitBtn.textContent = sending ? "Enviando…" : "Enviar solicitud";
   }
+
+  function showSuccess() {
+    form.hidden = true;
+    successBox.hidden = false;
+    successBox.focus({ preventScroll: true });
+  }
+
+  restartBtn.addEventListener("click", function () {
+    form.reset();
+    successBox.hidden = true;
+    form.hidden = false;
+    goToStep(1);
+    document.getElementById("nombre").focus();
+  });
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
+
+    // Enter en un paso intermedio avanza en lugar de enviar
+    if (currentStep < TOTAL_STEPS) {
+      nextBtn.click();
+      return;
+    }
+
     setStatus("", "");
 
-    // Si el campo trampa tiene contenido, es un robot: no se envía nada
-    if (getField("web").value) {
-      setStatus("Gracias. Hemos recibido tu solicitud.", "");
-      form.reset();
+    // Campo trampa relleno: se trata como enviado sin hacer nada
+    if (field("web").value) {
+      showSuccess();
       return;
     }
 
-    if (!validateAll()) {
-      setStatus("Revisa los campos marcados para poder enviar tu solicitud.", "error");
-      return;
+    // Validación completa antes de enviar
+    for (var step = 1; step <= TOTAL_STEPS; step++) {
+      var invalid = validateStep(step);
+      if (invalid) {
+        goToStep(step, false);
+        invalid.focus();
+        setStatus("Revisa los campos marcados para enviar tu solicitud.", "error");
+        return;
+      }
     }
 
-    // Sin endpoint configurado no se envía nada y no se muestra confirmación falsa
+    // Sin endpoint no se envía nada y no se muestra una confirmación falsa
     if (!config.formEndpoint) {
       console.warn("Formulario sin endpoint: configura formEndpoint en js/config.js");
       setStatus(
@@ -268,25 +387,24 @@
       if (controller) controller.abort();
     }, 15000);
 
+    // text/plain evita la comprobación previa (preflight) que Apps Script no admite
     fetch(config.formEndpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(buildPayload()),
       signal: controller ? controller.signal : undefined,
       credentials: "omit",
     })
       .then(function (response) {
         if (!response.ok) throw new Error("HTTP " + response.status);
-        form.reset();
-        form.classList.remove("is-sent");
-        void form.offsetWidth;
-        form.classList.add("is-sent");
-        setStatus(
-          "Gracias. Hemos recibido tu solicitud y te responderemos por la vía que has elegido.",
-          ""
-        );
+        return response.json();
       })
-      .catch(function () {
+      .then(function (data) {
+        if (!data || !data.ok) throw new Error(data && data.error ? data.error : "respuesta no válida");
+        showSuccess();
+      })
+      .catch(function (error) {
+        console.error(error);
         setStatus(
           "No hemos podido enviar tu solicitud. Inténtalo de nuevo o llámanos directamente.",
           "error"
@@ -297,4 +415,7 @@
         setSending(false);
       });
   });
+
+  // Estado inicial
+  goToStep(1);
 })();

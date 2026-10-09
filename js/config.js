@@ -30,10 +30,8 @@ window.SITE_CONFIG = {
     // { name: "Instagram", url: "https://www.instagram.com/..." },
   ],
 
-  // Formulario de contacto.
-  // URL de un servicio que reciba los datos por POST (por ejemplo, un endpoint
-  // propio o un servicio de formularios con el que tengas firmado un
-  // encargo de tratamiento). Mientras esté vacío, el formulario valida los
-  // datos pero NO envía nada y lo indica claramente.
+  // Formulario de contacto: URL de la aplicación web de Google Apps Script
+  // (la que termina en /exec). Instrucciones en backend/apps-script/Code.gs.
+  // Mientras esté vacío, el formulario valida los datos pero NO envía nada.
   formEndpoint: "",
 };

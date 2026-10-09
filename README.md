@@ -19,20 +19,29 @@ js/main.js          Comportamiento: menú móvil, revelado al hacer scroll, vali
 3. **Fotografías:** los bloques con la etiqueta "Fotografía pendiente" son marcadores. Para usar una foto real, sustituye el `<div class="photo-frame">` por `<img>` con `alt` descriptivo, y mantén `aspect-ratio` en `.photo-frame` si quieres conservar el formato.
 4. **Colores y tipografías:** variables en `:root` de `css/styles.css`.
 
-## Formulario de contacto
+## Formulario de contacto (asistente de tres pasos)
 
-El formulario valida todos los campos, muestra errores accesibles y confirma el envío. Para que los datos lleguen de verdad:
+El formulario recoge los datos en tres pasos: quién eres, qué te gustaría trabajar y cómo prefieres que te contactemos. Valida cada paso, muestra errores accesibles y confirma el envío. Los botones «Solicitar consulta» de cada servicio preseleccionan el motivo.
 
-- Indica en `js/config.js` la URL de `formEndpoint`. Recibe un `POST` en JSON con: `nombre`, `email`, `telefono`, `motivo`, `preferencia`, `privacidad`, `fecha` y `origen`.
-- Si `formEndpoint` está vacío, el formulario **no envía nada** y muestra un mensaje para que el visitante llame o escriba. No simula un envío correcto.
-- El campo oculto "No rellenar" actúa como trampa para robots: si llega con contenido, el envío se descarta.
-- Usa un servicio que trate los datos como encargado del tratamiento y formaliza ese encargo (RGPD). No envíes los datos a terceros sin esa base.
+Para que las solicitudes lleguen a tu correo:
+
+1. Abre `backend/apps-script/Code.gs` y sigue las instrucciones de la cabecera (proyecto de Google Apps Script, `NOTIFY_EMAIL`, implementación como aplicación web).
+2. Copia la URL que termina en `/exec` y pégala en `formEndpoint` de `js/config.js`.
+3. Haz un envío de prueba desde la web y comprueba que llega el correo. Si pulsas «Responder», escribirás directamente a la persona.
+4. Opcional: crea una hoja de cálculo, copia su ID en `SHEET_ID` y cada solicitud quedará también registrada allí.
+
+Notas:
+
+- Si `formEndpoint` está vacío, el formulario **no envía nada** y pide a la persona que llame o escriba. No muestra una confirmación falsa.
+- Cada cambio en `Code.gs` requiere una **nueva versión** de la implementación (Implementar > Gestionar implementaciones), o seguirá funcionando la versión anterior.
+- La comunicación con Apps Script se hace con `text/plain` para evitar una comprobación previa que Apps Script no admite. Confirma el primer envío de prueba, porque depende del comportamiento actual de Google.
+- El campo oculto «No rellenar» descarta los envíos de robots.
 
 ## Antes de publicar
 
 - [ ] Sustituir todos los valores entre corchetes (en `index.html`, `legal.html` y `js/config.js`).
 - [ ] Completar `<link rel="canonical">` y `og:url` con el dominio definitivo.
-- [ ] Configurar `formEndpoint` y probar un envío real.
+- [ ] Desplegar `backend/apps-script/Code.gs`, configurar `formEndpoint` y probar un envío real que llegue al correo del centro.
 - [ ] Sustituir las fotografías pendientes.
 - [ ] Revisar y adaptar `legal.html` con un profesional jurídico (LOPDGDD, RGPD, LSSI y cookies). Esta página es una base provisional, no asesoramiento legal.
 - [ ] Confirmar si se ofrecen consultas online. Hasta entonces, la FAQ correspondiente no lo afirma.
