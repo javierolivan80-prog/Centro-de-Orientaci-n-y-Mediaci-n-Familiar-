@@ -115,6 +115,19 @@ Cada tipo de elemento entra a su manera, con un propósito:
 
 Reglas: curvas de salida fuertes y sin `ease-in`, solo `transform`, `opacity` y `clip-path` (la excepción es el desplegado de servicios, que anima `grid-template-rows`), todos los `:hover` limitados a ratón, y **movimiento reducido** respetado: no hay bucles, ni desplazamientos, y todo el contenido está visible desde el principio. Los revelados duran entre 600 y 1800 ms porque son entradas de página y no interacciones repetidas.
 
+## Interactividad
+
+| Función | Qué hace | Por qué |
+| --- | --- | --- |
+| **Guía «¿Por dónde empezar?»** | Tres preguntas que orientan sobre qué servicio puede encajar, con notas prudentes (por ejemplo, que la mediación necesita a todas las partes). Lleva a la solicitud con el motivo ya elegido o abre el servicio recomendado. | Mucha gente no sabe qué pedir. Las respuestas no se guardan ni se envían. |
+| **Inicio rápido en la portada** | Nombre y correo pasan directamente al asistente de solicitud. | La acción principal, disponible desde la primera pantalla. |
+| **Menú que sigue la lectura** | Un indicador se desliza bajo la sección en la que estás (`aria-current`). | Orientarse en una página larga. |
+| **Pasos que avanzan contigo** | En «Cómo trabajamos», una línea se llena al bajar y cada paso se ilumina. | Explicar el proceso como un recorrido. |
+| **«Dos voces»** | Dos círculos que se acercan al desplazarte hasta solaparse. | Del desencuentro al entendimiento. |
+| **Buscador de preguntas** | Filtra las preguntas frecuentes al escribir, sin importar tildes; si no hay resultado, invita a escribir. | Encontrar la respuesta sin leerlo todo. |
+| **Profundidad en la portada** | El sol y la escena de la ventana se mueven levemente con el ratón. | Decorativo; solo con ratón y nunca con movimiento reducido. |
+| **Servicios desplegables** | «Más información» abre el detalle; «Solicitar consulta» preselecciona el motivo. | Leer y actuar en el mismo sitio. |
+
 ## Criterios de interfaz
 
 - La acción principal está disponible en la primera pantalla en su forma de trabajo: un formulario de inicio rápido que pasa los datos al asistente.

@@ -55,6 +55,7 @@
           <li><a href="#contacto">Contacto</a></li>
           <li class="nav-cta"><a class="btn btn-primary" href="#contacto">Solicitar una primera consulta</a></li>
         </ul>
+        <span class="nav-indicator" aria-hidden="true"></span>
       </nav>
 
       <div class="header-actions">
@@ -70,7 +71,7 @@
 
     <!-- PORTADA: amanece -->
     <section class="hero" id="inicio" aria-labelledby="hero-title" data-hero>
-      <div class="hero-sun-wrap" aria-hidden="true"><div class="hero-sun"></div></div>
+      <div class="hero-sun-wrap" aria-hidden="true"><div class="hero-sun-move"><div class="hero-sun"></div></div></div>
 
       <div class="container hero-grid">
         <div class="hero-copy">
@@ -88,7 +89,7 @@
             <p class="error" id="qs-error" role="alert" hidden></p>
             <p class="qs-note">Empiezas aquí y completas dos pasos más. No se envía nada hasta el final.</p>
           </form>
-          <p class="hero-secondary hero-fade" style="--base: 950ms"><a class="link-more" href="#enfoque">Conoce nuestro enfoque</a></p>
+          <p class="hero-secondary hero-fade" style="--base: 950ms"><a class="link-more" href="#por-donde-empezar">¿No sabes por dónde empezar? Te orientamos</a><a class="link-more" href="#enfoque">Conoce nuestro enfoque</a></p>
         </div>
 
         <div class="arch-wrap">
@@ -128,6 +129,28 @@
             <h3>Diálogo y entendimiento</h3>
             <p>Recuperar la conversación es el punto de partida para construir acuerdos duraderos.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUÍA: ¿POR DÓNDE EMPEZAR? -->
+    <section class="section section-cream" id="por-donde-empezar" aria-labelledby="guia-title">
+      <div class="container guide-grid">
+        <div class="guide-intro">
+          <h2 id="guia-title" data-split>¿Por dónde empezar?</h2>
+          <p class="text-large">Responde a tres preguntas breves y te orientamos sobre qué tipo de acompañamiento puede encajar contigo. Es solo una orientación: lo confirmaremos juntos en la primera conversación.</p>
+          <p class="guide-privacy"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Tus respuestas no se guardan ni se envían.</p>
+        </div>
+
+        <div class="guide" id="guide">
+          <div class="guide-head">
+            <p class="guide-count" id="guide-count" aria-live="polite">Pregunta 1 de 3</p>
+            <button class="guide-back link-more" type="button" hidden>Atrás</button>
+          </div>
+          <div class="guide-progress" aria-hidden="true"><span id="guide-bar"></span></div>
+          <div class="guide-stage" id="guide-stage">
+            <p>Para usar la guía necesitas tener JavaScript activado. También puedes <a href="#contacto">escribirnos directamente</a> y te orientamos nosotros.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -293,6 +316,7 @@
           <p class="voices-caption">Dos voces que, poco a poco, se encuentran.</p>
         </div>
 
+        <div class="steps-progress" aria-hidden="true"><span id="steps-fill"></span></div>
         <ol class="steps" data-stagger>
           <li class="step">
             <span class="step-num" aria-hidden="true">01</span>
@@ -331,6 +355,15 @@
           <h2 id="faq-title" data-split>Resolvemos tus dudas</h2>
         </div>
 
+        <div class="faq-search">
+          <label for="faq-q">Busca tu duda</label>
+          <div class="faq-search-field">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+            <input id="faq-q" type="search" placeholder="Por ejemplo: online, pareja, confidencialidad" autocomplete="off" enterkeyhint="search" aria-describedby="faq-count">
+          </div>
+          <p class="faq-count" id="faq-count" aria-live="polite"></p>
+        </div>
+
         <div class="faq" data-stagger>
           <details>
             <summary>¿Cuándo conviene acudir a un centro de orientación familiar?</summary>
@@ -361,6 +394,7 @@
             <p>La información que compartes es confidencial, dentro de los límites que establece la ley. Solo se utilizan tus datos para gestionar tu consulta. Consulta nuestra <a href="legal.html#privacidad">política de privacidad</a> para más detalles.</p>
           </details>
         </div>
+        <p class="faq-empty" id="faq-empty" hidden>No encontramos esa pregunta. <a href="#contacto">Escríbenos</a> y te respondemos personalmente.</p>
       </div>
     </section>
 

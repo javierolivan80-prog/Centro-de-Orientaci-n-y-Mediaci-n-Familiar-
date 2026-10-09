@@ -67,6 +67,11 @@ const problems = [];
         await page.waitForTimeout(700);
 
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+
+        // La cabecera debe seguir siendo una barra compacta (un menú mal posicionado la estira)
+        const headerHeight = await page.evaluate(() => Math.round(document.querySelector(".site-header").getBoundingClientRect().height));
+        const headerLimit = zoom === 100 ? 120 : 220;
+        if (headerHeight > headerLimit) problems.push(`${label}: la cabecera mide ${headerHeight}px (máximo ${headerLimit}px)`);
         if (overflow > 0) problems.push(`${label}: desbordamiento horizontal de ${overflow}px`);
 
         // Elementos cuyo borde derecho supera el ancho de la ventana

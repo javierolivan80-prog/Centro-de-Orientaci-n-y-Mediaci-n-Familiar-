@@ -54,7 +54,10 @@ Contrastes: texto principal sobre papel 14,5:1; texto secundario 6,6:1; blanco s
 - **Inicio rápido (portada):** dos campos y el botón principal; pasa los datos al asistente.
 - **Servicios:** lista con filetes; cada fila se despliega con «Más información» y ofrece «Solicitar consulta».
 - **Asistente de solicitud:** tres pasos con barra de progreso, opciones en fichas y confirmación.
-- **Preguntas frecuentes:** `details` con chevron dibujado.
+- **Preguntas frecuentes:** `details` con chevron dibujado y buscador sin distinción de tildes.
+- **Guía «¿Por dónde empezar?»:** tarjeta con tres preguntas en botones grandes, barra de progreso, transición lateral de 140/240 ms y resultado con las dos voces fundiéndose.
+- **Indicador del menú:** línea de arcilla que se desliza bajo la sección activa (340 ms, `ease-in-out` porque se mueve por la pantalla).
+- **Progreso de los pasos:** línea de arcilla ligada al scroll; el número del paso activo se rellena de sol.
 
 ## Imágenes
 

@@ -216,6 +216,140 @@
     updateVoices();
   }
 
+  /* ---------- Portada: profundidad con el ratón ----------
+     Decorativo y solo en dispositivos con ratón. El valor se suaviza en cada fotograma
+     (efecto muelle) en lugar de seguir el puntero en seco. */
+  var heroSunMove = document.querySelector(".hero-sun-move");
+  var heroImg = document.querySelector(".arch img");
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (hero && heroSunMove && heroImg && finePointer && !reduceMotion) {
+    var tx = 0, ty = 0, cx = 0, cy = 0, parallaxFrame = null;
+
+    var parallaxLoop = function () {
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      heroSunMove.style.transform = "translate3d(" + (-cx * 40).toFixed(2) + "px," + (-cy * 30).toFixed(2) + "px,0)";
+      heroImg.style.transform = "scale(1.06) translate3d(" + (cx * -16).toFixed(2) + "px," + (cy * -12).toFixed(2) + "px,0)";
+      if (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005) {
+        parallaxFrame = requestAnimationFrame(parallaxLoop);
+      } else {
+        parallaxFrame = null;
+      }
+    };
+
+    var aimParallax = function (x, y) {
+      tx = x;
+      ty = y;
+      if (!parallaxFrame) parallaxFrame = requestAnimationFrame(parallaxLoop);
+    };
+
+    hero.addEventListener("pointermove", function (event) {
+      if (event.pointerType !== "mouse") return;
+      var r = hero.getBoundingClientRect();
+      aimParallax((event.clientX - r.left) / r.width - 0.5, (event.clientY - r.top) / r.height - 0.5);
+    });
+    hero.addEventListener("pointerleave", function () { aimParallax(0, 0); });
+  }
+
+  /* ---------- Menú que sigue la lectura ----------
+     Marca con aria-current la sección visible y desliza el indicador hasta ella. */
+  var spyLinks = Array.prototype.slice.call(document.querySelectorAll('.site-nav ul a[href^="#"]')).filter(function (a) {
+    return !a.closest(".nav-cta");
+  });
+  var spySections = spyLinks.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+  var navIndicator = document.querySelector(".nav-indicator");
+  var spyFrame = null;
+  var lastActive = -2;
+
+  function updateSpy() {
+    spyFrame = null;
+    var line = window.innerHeight * 0.35;
+    var active = -1;
+    spySections.forEach(function (section, i) {
+      if (section && section.getBoundingClientRect().top <= line) active = i;
+    });
+    if (active === lastActive) return;
+    lastActive = active;
+
+    spyLinks.forEach(function (a, i) {
+      if (i === active) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    });
+
+    if (!navIndicator) return;
+    if (active < 0 || window.innerWidth <= 920) {
+      navIndicator.classList.remove("is-on");
+      return;
+    }
+    var link = spyLinks[active];
+    var x = link.offsetLeft;
+    var y = link.offsetTop + link.offsetHeight - 2;
+    navIndicator.style.transform = "translate3d(" + x + "px," + y + "px,0) scaleX(" + (link.offsetWidth / 100).toFixed(3) + ")";
+    navIndicator.classList.add("is-on");
+  }
+
+  function requestSpy() {
+    if (!spyFrame) spyFrame = requestAnimationFrame(updateSpy);
+  }
+
+  if (spyLinks.length) {
+    window.addEventListener("scroll", requestSpy, { passive: true });
+    window.addEventListener("resize", function () { lastActive = -2; requestSpy(); });
+    updateSpy();
+  }
+
+  /* ---------- Pasos que se iluminan al avanzar ---------- */
+  var stepsList = document.querySelector(".steps");
+  var stepsFill = document.getElementById("steps-fill");
+  if (stepsList && stepsFill) {
+    var stepItems = Array.prototype.slice.call(stepsList.children);
+    var stepsFrame = null;
+
+    var updateSteps = function () {
+      stepsFrame = null;
+      var p = 1;
+      if (!reduceMotion) {
+        var r = stepsList.getBoundingClientRect();
+        var vh = window.innerHeight;
+        p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.25)));
+      }
+      stepsFill.style.transform = "scaleX(" + p.toFixed(3) + ")";
+      stepItems.forEach(function (li, i) {
+        li.classList.toggle("is-active", p >= (i + 0.3) / stepItems.length);
+      });
+    };
+
+    window.addEventListener("scroll", function () {
+      if (!stepsFrame) stepsFrame = requestAnimationFrame(updateSteps);
+    }, { passive: true });
+    updateSteps();
+  }
+
+  /* ---------- Buscador de preguntas frecuentes ---------- */
+  var faqInput = document.getElementById("faq-q");
+  if (faqInput) {
+    var faqItems = Array.prototype.slice.call(document.querySelectorAll(".faq details"));
+    var faqEmpty = document.getElementById("faq-empty");
+    var faqCount = document.getElementById("faq-count");
+    var normalize = function (text) {
+      return text.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+    };
+    var faqTexts = faqItems.map(function (d) { return normalize(d.textContent); });
+
+    faqInput.addEventListener("input", function () {
+      var words = normalize(faqInput.value).split(/\s+/).filter(Boolean);
+      var shown = 0;
+      faqItems.forEach(function (d, i) {
+        var match = words.every(function (w) { return faqTexts[i].indexOf(w) !== -1; });
+        d.hidden = !match;
+        if (match) shown++;
+      });
+      faqEmpty.hidden = shown !== 0;
+      faqCount.textContent = !words.length ? "" : shown === 1 ? "1 pregunta encontrada" : shown + " preguntas encontradas";
+    });
+  }
+
   /* ---------- Servicios desplegables ---------- */
   var services = document.querySelectorAll(".service");
   var form = document.getElementById("consulta-form");
@@ -566,5 +700,200 @@
         if (!qsError.hidden) qsShow("", null);
       });
     });
+  }
+
+  /* ---------- Guía «¿Por dónde empezar?» ----------
+     Tres preguntas, una orientación prudente y un acceso directo a la solicitud con el
+     motivo ya elegido. Las respuestas no salen del navegador. */
+  var guideStage = document.getElementById("guide-stage");
+  if (guideStage) {
+    var guideCount = document.getElementById("guide-count");
+    var guideBar = document.getElementById("guide-bar");
+    var guideBack = document.querySelector(".guide-back");
+    var EASE = "cubic-bezier(0.23, 1, 0.32, 1)";
+
+    var QUESTIONS = [
+      {
+        key: "quien",
+        text: "¿Qué relación te preocupa ahora mismo?",
+        options: [
+          ["matrimonio", "Nuestro matrimonio"],
+          ["pareja", "Nuestra relación de pareja"],
+          ["familia", "La convivencia entre madres, padres e hijos"],
+          ["acuerdos", "Varias personas de la familia que tenemos que llegar a acuerdos"],
+          ["cuidar", "Ninguna en concreto: queremos cuidar nuestros vínculos"],
+        ],
+      },
+      {
+        key: "que",
+        text: "¿Qué describe mejor lo que está pasando?",
+        options: [
+          ["comunicacion", "Nos cuesta comunicarnos"],
+          ["conflicto", "Hay un conflicto que se repite"],
+          ["decisiones", "Tenemos que tomar decisiones o llegar a acuerdos"],
+          ["anticipar", "Todavía no pasa nada; queremos anticiparnos"],
+        ],
+      },
+      {
+        key: "quienes",
+        text: "¿Quién estaría dispuesto a venir?",
+        options: [
+          ["solo", "De momento, solo yo"],
+          ["todos", "Los dos, o todas las personas implicadas"],
+          ["nose", "Aún no lo sé"],
+        ],
+      },
+    ];
+
+    var SERVICES = {
+      matrimonial: { title: "Orientación matrimonial", text: "Un espacio para que los dos podáis expresar lo que vivís, entender qué está pasando en vuestro matrimonio y decidir juntos qué pasos dar." },
+      pareja: { title: "Orientación de pareja", text: "Te ayudamos a identificar los patrones que se repiten, a comprender el conflicto desde cada lado y a desarrollar herramientas para comunicaros mejor." },
+      familiar: { title: "Orientación familiar", text: "Acompañamos a madres, padres e hijos a entender lo que ocurre en la convivencia y a encontrar formas más respetuosas de relacionarse en el día a día." },
+      mediacion: { title: "Mediación familiar", text: "Una persona imparcial facilita el diálogo para que seáis vosotros quienes lleguéis a vuestros propios acuerdos, con calma y respetando a cada parte." },
+      prevencion: { title: "Prevención y fortalecimiento", text: "Un espacio para cuidar el vínculo, mejorar la comunicación y anticiparos a los conflictos antes de que aparezcan." },
+    };
+
+    var answers = {};
+    var current = 0;
+    var busy = false;
+
+    var recommend = function () {
+      var notes = [];
+      var key;
+      if (answers.quien === "cuidar" || answers.que === "anticipar") key = "prevencion";
+      else if (answers.quien === "acuerdos" || answers.que === "decisiones") key = "mediacion";
+      else if (answers.quien === "familia") key = "familiar";
+      else if (answers.quien === "matrimonio") key = "matrimonial";
+      else key = "pareja";
+
+      if (key === "mediacion" && answers.quienes !== "todos") {
+        notes.push("La mediación necesita que participen, de forma voluntaria, todas las partes. Si de momento vienes tú, podemos empezar con una orientación y valorar juntos el siguiente paso.");
+      } else if (answers.quienes === "solo") {
+        notes.push("No hace falta que vengáis todos para empezar: también puedes dar tú el primer paso.");
+      }
+      return { key: key, notes: notes };
+    };
+
+    var setChrome = function (step) {
+      var isResult = step >= QUESTIONS.length;
+      guideCount.textContent = isResult ? "Tu orientación" : "Pregunta " + (step + 1) + " de " + QUESTIONS.length;
+      guideBar.style.transform = "scaleX(" + Math.max(0.06, step / QUESTIONS.length).toFixed(3) + ")";
+      guideBack.hidden = step === 0;
+    };
+
+    var renderQuestion = function (step) {
+      var q = QUESTIONS[step];
+      var html = '<h3 class="guide-q" tabindex="-1">' + q.text + '</h3><ul class="guide-options">';
+      q.options.forEach(function (opt) {
+        var picked = answers[q.key] === opt[0] ? " is-picked" : "";
+        html += '<li><button class="guide-option' + picked + '" type="button" data-value="' + opt[0] + '">' + opt[1] + "</button></li>";
+      });
+      guideStage.innerHTML = html + "</ul>";
+    };
+
+    var renderResult = function () {
+      var r = recommend();
+      var service = SERVICES[r.key];
+      var notes = r.notes.map(function (n) { return '<p class="guide-note">' + n + "</p>"; }).join("");
+      guideStage.innerHTML =
+        '<div class="guide-result">' +
+        '<svg class="guide-merge" viewBox="0 0 92 56" aria-hidden="true"><circle class="a" cx="32" cy="28" r="24" fill="#5BC48C"/><circle class="b" cx="60" cy="28" r="24" fill="#F7C65B"/></svg>' +
+        '<p class="guide-result-label">Por lo que nos cuentas, puede encajarte:</p>' +
+        '<h3 tabindex="-1">' + service.title + "</h3>" +
+        "<p>" + service.text + "</p>" + notes +
+        '<div class="guide-actions">' +
+        '<button class="btn btn-primary" type="button" data-guide-request="' + r.key + '">Solicitar una consulta sobre esto</button>' +
+        '<button class="link-more" type="button" data-guide-see="' + r.key + '">Ver el servicio</button>' +
+        "</div>" +
+        '<div class="guide-foot"><p class="guide-disclaimer">Es una orientación general, no un diagnóstico. Lo valoraremos juntos en la primera conversación.</p>' +
+        '<button class="link-more" type="button" data-guide-restart>Volver a empezar</button></div>' +
+        "</div>";
+      var merge = guideStage.querySelector(".guide-merge");
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { merge.classList.add("is-merged"); });
+      });
+    };
+
+    var show = function (step, moveFocus) {
+      current = step;
+      setChrome(step);
+      if (step >= QUESTIONS.length) renderResult();
+      else renderQuestion(step);
+
+      if (!reduceMotion && guideStage.animate) {
+        guideStage.animate(
+          [{ opacity: 0, transform: "translateX(18px)" }, { opacity: 1, transform: "none" }],
+          { duration: 240, easing: EASE }
+        );
+        guideStage.querySelectorAll(".guide-option").forEach(function (btn, i) {
+          btn.animate(
+            [{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }],
+            { duration: 260, delay: 40 + i * 45, easing: EASE, fill: "backwards" }
+          );
+        });
+      }
+      if (moveFocus) {
+        var heading = guideStage.querySelector("h3");
+        if (heading) heading.focus({ preventScroll: true });
+      }
+    };
+
+    var go = function (step) {
+      if (busy) return;
+      if (reduceMotion || !guideStage.animate) return show(step, true);
+      busy = true;
+      var out = guideStage.animate(
+        [{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateX(-14px)" }],
+        { duration: 140, easing: EASE, fill: "forwards" }
+      );
+      out.onfinish = function () {
+        out.cancel();
+        busy = false;
+        show(step, true);
+      };
+    };
+
+    guideStage.addEventListener("click", function (event) {
+      var option = event.target.closest(".guide-option");
+      if (option) {
+        answers[QUESTIONS[current].key] = option.getAttribute("data-value");
+        guideStage.querySelectorAll(".guide-option").forEach(function (b) { b.classList.toggle("is-picked", b === option); });
+        go(current + 1);
+        return;
+      }
+
+      var request = event.target.closest("[data-guide-request]");
+      if (request) {
+        selectMotivo(request.getAttribute("data-guide-request"));
+        goToStep(1, false);
+        document.getElementById("contacto").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+        setTimeout(function () {
+          document.getElementById("nombre").focus({ preventScroll: true });
+        }, reduceMotion ? 0 : 600);
+        return;
+      }
+
+      var see = event.target.closest("[data-guide-see]");
+      if (see) {
+        var service = document.querySelector('.service[data-motivo="' + see.getAttribute("data-guide-see") + '"]');
+        if (!service) return;
+        var toggleBtn = service.querySelector(".service-toggle");
+        if (toggleBtn.getAttribute("aria-expanded") !== "true") toggleBtn.click();
+        service.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+        setTimeout(function () { toggleBtn.focus({ preventScroll: true }); }, reduceMotion ? 0 : 600);
+        return;
+      }
+
+      if (event.target.closest("[data-guide-restart]")) {
+        answers = {};
+        go(0);
+      }
+    });
+
+    guideBack.addEventListener("click", function () {
+      go(Math.max(0, current - 1));
+    });
+
+    show(0, false);
   }
 })();
